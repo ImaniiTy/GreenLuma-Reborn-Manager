@@ -174,7 +174,7 @@ border: 0px</string>
      <enum>QAbstractItemView::DropOnly</enum>
     </property>
     <property name="selectionMode">
-     <enum>QAbstractItemView::MultiSelection</enum>
+     <enum>QAbstractItemView::ExtendedSelection</enum>
     </property>
    </widget>
    <widget class="QComboBox" name="profile_selector">

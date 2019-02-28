@@ -114,7 +114,7 @@ class Ui_MainWindow(object):
         self.games_list.setGeometry(QtCore.QRect(820, 160, 281, 441))
         self.games_list.setStyleSheet("background-color: rgb(28, 28, 28);")
         self.games_list.setDragDropMode(QtWidgets.QAbstractItemView.DropOnly)
-        self.games_list.setSelectionMode(QtWidgets.QAbstractItemView.MultiSelection)
+        self.games_list.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
         self.games_list.setObjectName("games_list")
         self.profile_selector = QtWidgets.QComboBox(self.centralwidget)
         self.profile_selector.setGeometry(QtCore.QRect(820, 50, 281, 31))
