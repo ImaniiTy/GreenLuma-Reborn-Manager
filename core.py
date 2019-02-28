@@ -5,7 +5,7 @@ import json
 from bs4 import BeautifulSoup as parser
 from concurrent.futures.thread import ThreadPoolExecutor
 
-BASE_PATH = "{}/steamDB".format(os.getenv("LOCALAPPDATA"))
+BASE_PATH = "{}/GLR_Manager".format(os.getenv("LOCALAPPDATA"))
 PROFILES_PATH = "{}/Profiles".format(BASE_PATH)
 
 class Game:
@@ -104,6 +104,9 @@ class Config:
     def load_config():
         if not os.path.isfile("{}/config.json".format(BASE_PATH)):
             config = Config()
+            if not os.path.exists(BASE_PATH):
+                os.makedirs(BASE_PATH)
+            
             config.export_config()
             return config
         else:
@@ -113,7 +116,6 @@ class Config:
 
 
 #-------------
-
 config = Config.load_config()
 
 def createFiles(games):
