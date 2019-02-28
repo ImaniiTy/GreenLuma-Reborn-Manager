@@ -1,9 +1,7 @@
 # GreenLuma Reborn Manager
 A app to manage the Steam unlocker "GreenLuma Reborn" AppList
 
-## Latest update: **[GreenLuma Reborn](https://cs.rin.ru/forum/viewtopic.php?f=29&t=80797)**
-
-## What is GreenLuma Reborn ?
+## What is [GreenLuma Reborn](https://cs.rin.ru/forum/viewtopic.php?f=29&t=80797) ?
 GreenLuma Reborn (GLR) is a Steam unlocker made by Steam006 that is used to obtain games from family shared libraries and DLC for games. There's much more to it, though.
 
 The full list of features provided by Steam006.
@@ -25,6 +23,8 @@ I **highly advise** you to follow the "Legit stealth mode" installation instruct
 
 #### Credits to [@linkthehylian](https://github.com/linkthehylian) for this brief explanation
 
+## Latest update: **[GreenLuma Reborn Manager](https://github.com/ImaniiTy/GreenLuma-Reborn-Manager/releases)**
+
 ## Features
   * Easily manage profiles for varius games(good to circumvent the 160 id limit)
     * Add/Remove 1 or more games at once
@@ -33,7 +33,8 @@ I **highly advise** you to follow the "Legit stealth mode" installation instruct
     * Search results are directly from SteamDB
     * Sort the results from Type(DLC, Game, etc..) or Name
   * All the profiles info are in JSON files so you can easily share with anyone
-  
+    * The profiles are saved on: C:\Users\YOUR_USER\AppData\Local\GLR_Manager\Profiles
+
 ![alt text](https://puu.sh/CTf58/bf4dfe18f2.png)
   
 ## What's the difference between your app and [GreenLuma Reborn App](https://github.com/linkthehylian/GreenLuma-Reborn-App)?
@@ -42,6 +43,7 @@ I **highly advise** you to follow the "Legit stealth mode" installation instruct
 ## Future Plans
 * **Work on the UI(I still suck at UI design)**
 * **Add varius QoL stuff(Would love some ideas for this)**
+* Add a way to load previous games on your AppList folder
 * Add a way to launch GLR direct from the app
 * Add some user input validation
   
