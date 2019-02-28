@@ -26,7 +26,7 @@ I **highly advise** you to follow the "Legit stealth mode" installation instruct
 ## Latest update: **[GreenLuma Reborn Manager](https://github.com/ImaniiTy/GreenLuma-Reborn-Manager/releases)**
 
 ## Features
-  * Easily manage profiles for varius games(good to circumvent the 160 id limit)
+  * Easily manage profiles for various games(good to circumvent the 160 id limit)
     * Add/Remove 1 or more games at once
     * Add/Remove profiles
   * Search for any game you want to add direct from the app
