@@ -137,7 +137,7 @@ class MainWindow(QMainWindow):
         profile = profile_manager.profiles[self.main_window.profile_selector.currentText()]
 
         for item in items:
-            if games_dict[item.text()] not in profile.games:
+            if item.text() not in [game.name for game in profile.games]:
                 profile.add_game(games_dict[item.text()])
 
         self.show_profile_games(profile)
