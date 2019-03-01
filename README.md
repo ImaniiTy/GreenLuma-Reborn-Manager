@@ -23,8 +23,7 @@ I **highly advise** you to follow the "Legit stealth mode" installation instruct
 
 #### Credits to [@linkthehylian](https://github.com/linkthehylian) for this brief explanation
 
-## Latest release
-  **[GreenLuma Reborn Manager v1.0.0](https://github.com/ImaniiTy/GreenLuma-Reborn-Manager/releases)**
+## Latest release: **[GreenLuma Reborn Manager v1.0.0](https://github.com/ImaniiTy/GreenLuma-Reborn-Manager/releases)**
 
 ## Features
   * Easily manage profiles for various games(good to circumvent the 160 id limit)
