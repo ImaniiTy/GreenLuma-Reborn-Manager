@@ -2,6 +2,7 @@ import cfscrape
 import os
 import shutil
 import json
+import time
 from bs4 import BeautifulSoup as parser
 from concurrent.futures.thread import ThreadPoolExecutor
 
@@ -123,6 +124,7 @@ def createFiles(games):
         os.makedirs("{}/AppList".format(config.steam_path))
     else:
         shutil.rmtree("{}/AppList".format(config.steam_path))
+        time.sleep(0.5)
         os.makedirs("{}/AppList".format(config.steam_path))
 
     for i in range(len(games)):
