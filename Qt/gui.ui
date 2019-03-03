@@ -87,6 +87,11 @@ QHeaderView::section {
 QAbstractItemView {
 	padding: 2px
 }
+
+QTableWidget::item:selected{ 
+	background-color: white;
+	color: black
+}
 </string>
    </property>
    <widget class="QPushButton" name="generate_btn">
@@ -110,7 +115,7 @@ QAbstractItemView {
      <rect>
       <x>10</x>
       <y>50</y>
-      <width>781</width>
+      <width>791</width>
       <height>31</height>
      </rect>
     </property>
@@ -133,7 +138,7 @@ color: rgb(6, 11, 8);</string>
    <widget class="QPushButton" name="search_btn">
     <property name="geometry">
      <rect>
-      <x>730</x>
+      <x>740</x>
       <y>52</y>
       <width>51</width>
       <height>26</height>
@@ -378,6 +383,12 @@ color: rgb(6, 11, 8);</string>
     </property>
     <property name="dragDropMode">
      <enum>QAbstractItemView::DragOnly</enum>
+    </property>
+    <property name="selectionBehavior">
+     <enum>QAbstractItemView::SelectRows</enum>
+    </property>
+    <property name="sortingEnabled">
+     <bool>true</bool>
     </property>
     <property name="wordWrap">
      <bool>false</bool>

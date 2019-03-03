@@ -1,6 +1,6 @@
 from Qt.gui import Ui_MainWindow
-from PyQt5.QtWidgets import QMainWindow, QHeaderView, QTableWidgetItem, QShortcut
-from PyQt5.QtCore import  QAbstractItemModel, Qt, QModelIndex, QVariant, QThread, pyqtSignal
+from PyQt5.QtWidgets import QMainWindow, QHeaderView, QTableWidgetItem, QShortcut, QListWidget
+from PyQt5.QtCore import  QAbstractItemModel, Qt, QModelIndex, QVariant, QThread, QEvent, pyqtSignal
 from PyQt5.QtGui import QKeySequence, QIcon
 import core
 
@@ -23,10 +23,23 @@ class MainWindow(QMainWindow):
         self.main_window.searching_frame.setHidden(True)
         self.main_window.set_steam_path_window.setHidden(True)
         self.populate_list(self.main_window.games_list, games)
+        self.main_window.games_list.dropEvent = self.drop_event_handler
         self.populate_table(self.main_window.search_result, games)
         self.populate_list(self.main_window.profile_selector,profile_manager.profiles.values())
         self.show_profile_games(profile_manager.profiles[self.main_window.profile_selector.currentText()])
         self.setup_steam_path()
+
+        #Table Setup
+        self.main_window.search_result.setColumnCount(3)
+
+        header = self.main_window.search_result.horizontalHeader()
+        header.setSectionResizeMode(QHeaderView.ResizeToContents)
+        header.setMaximumSectionSize(580)
+        header.sectionClicked.connect(lambda index : self.main_window.search_result.horizontalHeader().setSortIndicator(index, Qt.AscendingOrder))
+
+        self.main_window.search_result.setHorizontalHeaderItem(0, QTableWidgetItem("Id"))
+        self.main_window.search_result.setHorizontalHeaderItem(1, QTableWidgetItem("Name"))
+        self.main_window.search_result.setHorizontalHeaderItem(2, QTableWidgetItem("Type"))
 
         #Shortcuts
         del_game = QShortcut(QKeySequence(Qt.Key_Delete), self.main_window.games_list)
@@ -101,33 +114,25 @@ class MainWindow(QMainWindow):
 
     def populate_table(self, table, data):
         #Reset
-        table.setRowCount(0)
         table.setSortingEnabled(False)
+        table.clearSelection()
+        table.setRowCount(0)
+        games_dict.clear()
         #----
-
         table.setRowCount(len(data))
-        table.setColumnCount(3)
-        table.setSortingEnabled(True)
 
-        header = table.horizontalHeader()
-        header.setSectionResizeMode(QHeaderView.ResizeToContents)
-        header.setMaximumSectionSize(580)
-        header.sectionClicked.connect(lambda index : self.main_window.search_result.horizontalHeader().setSortIndicator(index, Qt.AscendingOrder))
-
-        table.setHorizontalHeaderItem(0, QTableWidgetItem("Id"))
-        table.setHorizontalHeaderItem(1, QTableWidgetItem("Name"))
-        table.setHorizontalHeaderItem(2, QTableWidgetItem("Type"))
         for i, item in enumerate(data):
             games_dict[item.name] = item
             for j, value in enumerate(item.to_list()):
                 table_item = QTableWidgetItem(value)
-                print(value)
                 if j == 1:
-                    table_item.setFlags(Qt.ItemIsEnabled | Qt.ItemIsSelectable)
+                    table_item.setFlags(Qt.ItemIsEnabled | Qt.ItemIsSelectable | Qt.ItemIsDragEnabled)
                 else:
-                    table_item.setFlags(Qt.NoItemFlags)
-                
+                    table_item.setFlags(Qt.ItemIsEnabled | Qt.ItemIsSelectable)
+
                 table.setItem(i, j, table_item)
+
+        table.setSortingEnabled(True)
 
     def add_selected(self):
         items = self.main_window.search_result.selectedItems()
@@ -136,9 +141,9 @@ class MainWindow(QMainWindow):
         
         profile = profile_manager.profiles[self.main_window.profile_selector.currentText()]
 
-        for item in items:
-            if item.text() not in [game.name for game in profile.games]:
-                profile.add_game(games_dict[item.text()])
+        for game in core.Game.from_table_list(items):
+            if game not in profile.games:
+                profile.add_game(game)
 
         self.show_profile_games(profile)
         profile.export_profile()
@@ -180,6 +185,9 @@ class MainWindow(QMainWindow):
             return
         
         self.toggle_steam_path_window()
+
+    def drop_event_handler(self, event):
+        self.add_selected()
 
 class SearchThread(QThread):
     signal = pyqtSignal('PyQt_PyObject')

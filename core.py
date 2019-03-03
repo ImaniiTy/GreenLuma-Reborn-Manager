@@ -24,9 +24,20 @@ class Game:
     def to_list(self):
         return [self.id, self.name, self.type]
 
+    def __eq__(self, value):
+        return self.id == value.id and self.name == value.name and self.type == value.type
+
     @staticmethod
     def from_JSON(data):
         return Game(data["id"],data["name"],data["type"])
+    
+    @staticmethod
+    def from_table_list(list):
+        games = []
+        for i in range(int(len(list)/3)):
+            games.append(Game(list[i * 3].text(), list[i * 3 + 1].text(), list[i * 3 + 2].text()))
+
+        return games
 
 class Profile:
     def __init__(self,name = 'default',games = None):

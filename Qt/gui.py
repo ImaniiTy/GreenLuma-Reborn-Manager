@@ -82,6 +82,11 @@ class Ui_MainWindow(object):
 "QAbstractItemView {\n"
 "    padding: 2px\n"
 "}\n"
+"\n"
+"QTableWidget::item:selected{ \n"
+"    background-color: white;\n"
+"    color: black\n"
+"}\n"
 "")
         self.centralwidget.setObjectName("centralwidget")
         self.generate_btn = QtWidgets.QPushButton(self.centralwidget)
@@ -89,7 +94,7 @@ class Ui_MainWindow(object):
         self.generate_btn.setStyleSheet("")
         self.generate_btn.setObjectName("generate_btn")
         self.game_search_text = QtWidgets.QLineEdit(self.centralwidget)
-        self.game_search_text.setGeometry(QtCore.QRect(10, 50, 781, 31))
+        self.game_search_text.setGeometry(QtCore.QRect(10, 50, 791, 31))
         self.game_search_text.setStyleSheet("width: 100%;\n"
 "font: 10pt \"Consolas\";\n"
 "border-radius: 15px;\n"
@@ -100,7 +105,7 @@ class Ui_MainWindow(object):
         self.game_search_text.setText("")
         self.game_search_text.setObjectName("game_search_text")
         self.search_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.search_btn.setGeometry(QtCore.QRect(730, 52, 51, 26))
+        self.search_btn.setGeometry(QtCore.QRect(740, 52, 51, 26))
         self.search_btn.setStyleSheet("background-color: rgb(255, 255, 255);\n"
 "border-radius: 4px;\n"
 "border: 0px")
@@ -180,6 +185,7 @@ class Ui_MainWindow(object):
         self.search_result.setStyleSheet("background-color: rgb(28, 28, 28);")
         self.search_result.setDragEnabled(True)
         self.search_result.setDragDropMode(QtWidgets.QAbstractItemView.DragOnly)
+        self.search_result.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
         self.search_result.setWordWrap(False)
         self.search_result.setObjectName("search_result")
         self.search_result.setColumnCount(0)
@@ -286,6 +292,7 @@ class Ui_MainWindow(object):
         self.create_profile_btn.setText(_translate("MainWindow", "Create"))
         self.cancel_profile_btn.setText(_translate("MainWindow", "Cancel"))
         self.label_3.setText(_translate("MainWindow", "Profile Name:"))
+        self.search_result.setSortingEnabled(True)
         self.delete_profile.setText(_translate("MainWindow", "Delete Profile"))
         self.remove_game.setText(_translate("MainWindow", "Remove Games"))
         self.label_4.setText(_translate("MainWindow", "GreenLuma Reborn Manager"))
