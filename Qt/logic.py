@@ -24,6 +24,8 @@ class MainWindow(QMainWindow):
         self.main_window.profile_create_window.setHidden(True)
         self.main_window.searching_frame.setHidden(True)
         self.main_window.set_steam_path_window.setHidden(True)
+        self.main_window.closing_steam.setHidden(True)
+        self.main_window.generic_popup.setHidden(True)
         self.main_window.no_hook_checkbox.setChecked(core.config.no_hook)
         self.main_window.no_update_checkbox.setChecked(core.config.no_update)
         self.populate_list(self.main_window.games_list, games)
@@ -61,9 +63,10 @@ class MainWindow(QMainWindow):
         self.main_window.add_to_profile.clicked.connect(self.add_selected)
         self.main_window.profile_selector.currentTextChanged.connect(self.select_profile)
         self.main_window.generate_btn.clicked.connect(self.generate_app_list)
-        self.main_window.run_GLR_btn.clicked.connect(self.run_GLR)
+        self.main_window.run_GLR_btn.clicked.connect(lambda : self.show_popup("This will restart Steam if it's open do you want to continue?", self.run_GLR))
         self.main_window.remove_game.clicked.connect(self.remove_selected)
         self.main_window.delete_profile.clicked.connect(self.delete_profile)
+        self.main_window.popup_btn2.clicked.connect(self.toggle_popup)
     
     def toggle_profile_window(self):
         self.toggle_hidden(self.main_window.profile_create_window)
@@ -187,6 +190,7 @@ class MainWindow(QMainWindow):
 
     def toggle_hidden(self, widget):
         widget.setHidden(not widget.isHidden())
+        self.repaint()
 
     def toggle_enable(self, widget):
         widget.setEnabled(not widget.isEnabled())
@@ -214,9 +218,19 @@ class MainWindow(QMainWindow):
     def drop_event_handler(self, event):
         self.add_selected()
 
+    def show_popup(self, message, callback):
+        self.main_window.popup_text.setPlainText(message)
+        self.main_window.popup_btn1.clicked.connect(callback)
+
+        self.toggle_popup()
+
+    def toggle_popup(self):
+        self.toggle_hidden(self.main_window.generic_popup)
+        self.toggle_enable(self.main_window.generic_popup)
+
     def is_steam_running(self):
         for process in psutil.process_iter():
-            if process.name() == "Steam.exe":
+            if process.name() == "Steam.exe" or process.name() == "SteamService.exe" or process.name() == "steamwebhelper.exe":
                 return True
         
         return False
@@ -224,7 +238,7 @@ class MainWindow(QMainWindow):
     def run_GLR(self):
         if len(profile_manager.profiles[self.main_window.profile_selector.currentText()].games) == 0:
             return
-
+        self.toggle_popup()
         self.generate_app_list()
 
         args = ["GreenLuma_Reborn.exe", "-NoQuestion"]
@@ -239,8 +253,11 @@ class MainWindow(QMainWindow):
 
         core.os.chdir(core.config.steam_path)
         if self.is_steam_running():
+            self.toggle_hidden(self.main_window.closing_steam)
             subprocess.run(["Steam.exe", "-shutdown"]) #Shutdown Steam
-            core.time.sleep(2)
+            while self.is_steam_running():
+                core.time.sleep(1)
+            core.time.sleep(1)
         
         subprocess.run(args)
         self.close()

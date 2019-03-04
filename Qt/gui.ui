@@ -662,6 +662,116 @@ color: rgb(6, 11, 8);</string>
      <string>NoUpdate</string>
     </property>
    </widget>
+   <widget class="QWidget" name="generic_popup" native="true">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>270</y>
+      <width>531</width>
+      <height>161</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: 1px solid white</string>
+    </property>
+    <widget class="QPushButton" name="popup_btn1">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>110</y>
+       <width>151</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Ok</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="popup_btn2">
+     <property name="geometry">
+      <rect>
+       <x>350</x>
+       <y>110</y>
+       <width>151</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Cancel</string>
+     </property>
+    </widget>
+    <widget class="QPlainTextEdit" name="popup_text">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>30</y>
+       <width>491</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#popup_text {
+	border: 0px
+}</string>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="plainText">
+      <string/>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="closing_steam" native="true">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>240</y>
+      <width>621</width>
+      <height>181</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: 1px solid white</string>
+    </property>
+    <widget class="QLabel" name="label_8">
+     <property name="geometry">
+      <rect>
+       <x>50</x>
+       <y>30</y>
+       <width>521</width>
+       <height>121</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: 0px</string>
+     </property>
+     <property name="text">
+      <string>Closing Steam...</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </widget>
    <zorder>search_result</zorder>
    <zorder>game_search_text</zorder>
    <zorder>search_btn</zorder>
@@ -682,6 +792,8 @@ color: rgb(6, 11, 8);</string>
    <zorder>generate_btn</zorder>
    <zorder>run_GLR_btn</zorder>
    <zorder>no_update_checkbox</zorder>
+   <zorder>generic_popup</zorder>
+   <zorder>closing_steam</zorder>
   </widget>
  </widget>
  <resources>
