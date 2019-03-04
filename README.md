@@ -23,7 +23,7 @@ I **highly advise** you to follow the "Legit stealth mode" installation instruct
 
 #### Credits to [@linkthehylian](https://github.com/linkthehylian) for this brief explanation
 
-## Latest release: **[GreenLuma Reborn Manager v1.1.0](https://github.com/ImaniiTy/GreenLuma-Reborn-Manager/releases)**
+## Latest release: **[GreenLuma Reborn Manager v1.2.0](https://github.com/ImaniiTy/GreenLuma-Reborn-Manager/releases)**
 
 ## Features
   * Easily manage profiles for various games(good to circumvent the 160 id limit)
@@ -32,10 +32,11 @@ I **highly advise** you to follow the "Legit stealth mode" installation instruct
   * Search for any game you want to add direct from the app
     * Search results are directly from SteamDB
     * Sort the results from Type(DLC, Game, etc..) or Name
+  * Automatically generate the AppList, restart steam and run GLR in one click
   * All the profiles info are in JSON files so you can easily share with anyone
     * The profiles are saved on: C:\Users\YOUR_USER\AppData\Local\GLR_Manager\Profiles
 
-![alt text](https://puu.sh/CUl6F/07dd9d1c01.png)
+![alt text](https://puu.sh/CUNe0/b28e0502b2.png)
   
 ## What's the difference between your app and [GreenLuma Reborn App](https://github.com/linkthehylian/GreenLuma-Reborn-App)?
   Well the main difference, like i said on the topic above, is that on my app you can search the game you want to add directly from the program and my version is more focused on the management of the folder (and if you're like me who don't like having all the games unlocked at the same time the profile system can help you alot)
@@ -44,7 +45,7 @@ I **highly advise** you to follow the "Legit stealth mode" installation instruct
 * **Work on the UI(I still suck at UI design)**
 * **Add varius QoL stuff(Would love some ideas for this)**
 * Add a way to load previous games on your AppList folder
-* Add a way to launch GLR direct from the app
+* Add a way to launch GLR direct from the app (Done)
 * Add some user input validation
   
 ## Built With
