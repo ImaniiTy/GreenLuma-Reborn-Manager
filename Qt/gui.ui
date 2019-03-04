@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1120</width>
-    <height>728</height>
+    <height>747</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -69,16 +69,6 @@ QPushButton:pressed {
 	border: 2px solid rgb(85, 85, 85);
 }
 
-#generate_btn {
-	background-color: rgb(29, 185, 84);
-	color: rgb(6, 11, 8);
-}
-
-#generate_btn:hover {
-	color: rgb(24, 24, 24);
-	background-color: rgb(245, 245, 245);
-}
-
 QHeaderView::section {
 	background-color: rgb(29, 29, 29);
 	border: 1px solid rgb(245, 245, 245)
@@ -88,7 +78,7 @@ QAbstractItemView {
 	padding: 2px
 }
 
-QTableWidget::item:selected{ 
+QAbstractItemView::item:selected{ 
 	background-color: white;
 	color: black
 }
@@ -97,14 +87,22 @@ QTableWidget::item:selected{
    <widget class="QPushButton" name="generate_btn">
     <property name="geometry">
      <rect>
-      <x>420</x>
-      <y>660</y>
+      <x>280</x>
+      <y>670</y>
       <width>221</width>
       <height>51</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true"/>
+     <string notr="true">#generate_btn {
+	background-color: rgb(29, 185, 84);
+	color: rgb(6, 11, 8);
+}
+
+#generate_btn:hover {
+	color: rgb(24, 24, 24);
+	background-color: rgb(245, 245, 245);
+}</string>
     </property>
     <property name="text">
      <string>Generate</string>
@@ -601,8 +599,70 @@ color: rgb(6, 11, 8);</string>
      <string>Change Steam Path</string>
     </property>
    </widget>
+   <widget class="QCheckBox" name="no_hook_checkbox">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>670</y>
+      <width>121</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>NoHook</string>
+    </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="run_GLR_btn">
+    <property name="geometry">
+     <rect>
+      <x>520</x>
+      <y>670</y>
+      <width>221</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#run_GLR_btn {
+	background-color: rgb(0, 116, 217);
+	color: rgb(6, 11, 8);
+}
+
+#run_GLR_btn:hover {
+	color: rgb(24, 24, 24);
+	background-color: rgb(245, 245, 245);
+}</string>
+    </property>
+    <property name="text">
+     <string>Run GLR</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="no_update_checkbox">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>700</y>
+      <width>121</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>NoUpdate</string>
+    </property>
+   </widget>
    <zorder>search_result</zorder>
-   <zorder>generate_btn</zorder>
    <zorder>game_search_text</zorder>
    <zorder>search_btn</zorder>
    <zorder>games_list</zorder>
@@ -618,6 +678,10 @@ color: rgb(6, 11, 8);</string>
    <zorder>profile_create_window</zorder>
    <zorder>set_steam_path_window</zorder>
    <zorder>change_steam_path_btn</zorder>
+   <zorder>no_hook_checkbox</zorder>
+   <zorder>generate_btn</zorder>
+   <zorder>run_GLR_btn</zorder>
+   <zorder>no_update_checkbox</zorder>
   </widget>
  </widget>
  <resources>

@@ -3,6 +3,8 @@ from PyQt5.QtWidgets import QMainWindow, QHeaderView, QTableWidgetItem, QShortcu
 from PyQt5.QtCore import  QAbstractItemModel, Qt, QModelIndex, QVariant, QThread, QEvent, pyqtSignal
 from PyQt5.QtGui import QKeySequence, QIcon
 import core
+import subprocess
+import psutil
 
 profile_manager = core.ProfileManager()
 games = []
@@ -22,10 +24,12 @@ class MainWindow(QMainWindow):
         self.main_window.profile_create_window.setHidden(True)
         self.main_window.searching_frame.setHidden(True)
         self.main_window.set_steam_path_window.setHidden(True)
+        self.main_window.no_hook_checkbox.setChecked(core.config.no_hook)
+        self.main_window.no_update_checkbox.setChecked(core.config.no_update)
         self.populate_list(self.main_window.games_list, games)
         self.main_window.games_list.dropEvent = self.drop_event_handler
         self.populate_table(self.main_window.search_result, games)
-        self.populate_list(self.main_window.profile_selector,profile_manager.profiles.values())
+        self.show_profile_names()
         self.show_profile_games(profile_manager.profiles[self.main_window.profile_selector.currentText()])
         self.setup_steam_path()
 
@@ -55,8 +59,9 @@ class MainWindow(QMainWindow):
         self.main_window.search_btn.clicked.connect(self.search_games)
         self.main_window.game_search_text.returnPressed.connect(self.search_games)
         self.main_window.add_to_profile.clicked.connect(self.add_selected)
-        self.main_window.profile_selector.currentTextChanged.connect(lambda name : self.show_profile_games(profile_manager.profiles[name]))
+        self.main_window.profile_selector.currentTextChanged.connect(self.select_profile)
         self.main_window.generate_btn.clicked.connect(self.generate_app_list)
+        self.main_window.run_GLR_btn.clicked.connect(self.run_GLR)
         self.main_window.remove_game.clicked.connect(self.remove_selected)
         self.main_window.delete_profile.clicked.connect(self.delete_profile)
     
@@ -66,11 +71,14 @@ class MainWindow(QMainWindow):
     
     def create_profile(self):
         name = self.main_window.profile_name.text()
-        profile_manager.create_profile(name)
-        self.main_window.profile_selector.addItem(name)
+        if name != "":
+            profile_manager.create_profile(name)
+            self.main_window.profile_selector.addItem(name)
 
         self.toggle_profile_window()
         self.main_window.profile_name.clear()
+
+        self.main_window.profile_selector.setCurrentIndex(self.main_window.profile_selector.count() - 1)
 
     def delete_profile(self):
         name = self.main_window.profile_selector.currentText()
@@ -81,6 +89,12 @@ class MainWindow(QMainWindow):
 
         index = self.main_window.profile_selector.currentIndex()
         self.main_window.profile_selector.removeItem(index)
+
+    def select_profile(self, name):
+        core.config.last_profile = name
+        core.config.export_config()
+
+        self.show_profile_games(profile_manager.profiles[name])
 
     def search_games(self):
         query = self.main_window.game_search_text.text()
@@ -111,6 +125,16 @@ class MainWindow(QMainWindow):
         list = self.main_window.games_list
 
         self.populate_list(list, profile.games)
+
+    def show_profile_names(self):
+        data = profile_manager.profiles.values()
+
+        if core.config.last_profile in profile_manager.profiles.keys():
+            self.main_window.profile_selector.addItem(core.config.last_profile)
+
+        for item in data:
+            if item.name != core.config.last_profile:
+                self.main_window.profile_selector.addItem(item.name)
 
     def populate_table(self, table, data):
         #Reset
@@ -182,12 +206,44 @@ class MainWindow(QMainWindow):
 
     def setup_steam_path(self):
         if core.config.is_path_setup:
+            self.main_window.steam_path.setText(core.config.steam_path)
             return
         
         self.toggle_steam_path_window()
 
     def drop_event_handler(self, event):
         self.add_selected()
+
+    def is_steam_running(self):
+        for process in psutil.process_iter():
+            if process.name() == "Steam.exe":
+                return True
+        
+        return False
+
+    def run_GLR(self):
+        if len(profile_manager.profiles[self.main_window.profile_selector.currentText()].games) == 0:
+            return
+
+        self.generate_app_list()
+
+        args = ["GreenLuma_Reborn.exe", "-NoQuestion"]
+        core.config.no_hook = self.main_window.no_hook_checkbox.isChecked()
+        core.config.no_update = self.main_window.no_update_checkbox.isChecked()
+        core.config.export_config()
+
+        if core.config.no_hook:
+            args.append("-NoHook")
+        if core.config.no_update:
+            args.append("-NoUpdate")
+
+        core.os.chdir(core.config.steam_path)
+        if self.is_steam_running():
+            subprocess.run(["Steam.exe", "-shutdown"]) #Shutdown Steam
+            core.time.sleep(1)
+        
+        subprocess.run(args)
+        self.close()
 
 class SearchThread(QThread):
     signal = pyqtSignal('PyQt_PyObject')

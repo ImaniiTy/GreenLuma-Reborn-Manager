@@ -8,6 +8,7 @@ from concurrent.futures.thread import ThreadPoolExecutor
 
 BASE_PATH = "{}/GLR_Manager".format(os.getenv("LOCALAPPDATA"))
 PROFILES_PATH = "{}/Profiles".format(BASE_PATH)
+CURRENT_VERSION = "1.2.0"
 
 class Game:
     def __init__(self,id,name,type):
@@ -59,6 +60,9 @@ class Profile:
         with open("{}/{}.json".format(path, self.name), "w") as outfile:
             json.dump(data,outfile,indent=4)
 
+    def __eq__(self, value):
+        return self.name == value.name
+
     @staticmethod
     def from_JSON(data):
         return Profile(data["name"], [Game.from_JSON(game) for game in data["games"]])
@@ -66,7 +70,6 @@ class Profile:
 class ProfileManager:
     def __init__(self):
         self.profiles = {}
-        self.default = "default"
         self.load_profiles()
 
     def load_profiles(self):
@@ -95,23 +98,31 @@ class ProfileManager:
         self.profiles.pop(profile_name)
         os.remove("{}/{}.json".format(PROFILES_PATH,profile_name))
 
-    def make_profile_default(self):
-        return
-
 class Config:
-    def __init__(self, steam_path = "AppList", is_path_setup = False):
+    def __init__(self, steam_path = "AppList", is_path_setup = False, no_hook = True, no_update = False, version = CURRENT_VERSION, last_profile = "default"):
         self.steam_path = steam_path
         self.is_path_setup = is_path_setup
+        self.no_hook = no_hook
+        self.no_update = no_update
+        self.version = version
+        self.last_profile = last_profile
 
     def export_config(self):
-        data = {"steam_path": self.steam_path, "is_path_setup": self.is_path_setup}
+        data = {"steam_path": self.steam_path, "is_path_setup": self.is_path_setup, "no_hook": self.no_hook, "no_update": self.no_update, "version": self.version, "last_profile": self.last_profile}
         with open("{}/config.json".format(BASE_PATH), "w") as outfile:
             json.dump(data,outfile,indent=4)
 
     @staticmethod
     def from_JSON(data):
-        return Config(data["steam_path"], data["is_path_setup"])
-    
+        keys = data.keys()
+        config = Config()
+        return Config(data["steam_path"] if "steam_path" in keys else config.steam_path, 
+                      data["is_path_setup"] if "is_path_setup" in keys else config.is_path_setup, 
+                      data["no_hook"] if "no_hook" in keys else config.no_hook, 
+                      data["no_update"] if "no_update" in keys else config.no_update, 
+                      data["version"] if "version" in keys else config.version,
+                      data["last_profile"] if "last_profile" in keys else config.last_profile)
+
     @staticmethod
     def load_config():
         if not os.path.isfile("{}/config.json".format(BASE_PATH)):
@@ -124,7 +135,9 @@ class Config:
         else:
             with open("{}/config.json".format(BASE_PATH), "r") as file:
                 data = json.load(file)
-                return Config.from_JSON(data)
+                config = Config.from_JSON(data)
+                config.export_config()
+                return config
 
 
 #-------------

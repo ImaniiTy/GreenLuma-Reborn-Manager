@@ -12,7 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1120, 728)
+        MainWindow.resize(1120, 747)
         MainWindow.setStyleSheet("background-color: rgb(18, 18, 18);")
         MainWindow.setAnimated(False)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -64,16 +64,6 @@ class Ui_MainWindow(object):
 "    border: 2px solid rgb(85, 85, 85);\n"
 "}\n"
 "\n"
-"#generate_btn {\n"
-"    background-color: rgb(29, 185, 84);\n"
-"    color: rgb(6, 11, 8);\n"
-"}\n"
-"\n"
-"#generate_btn:hover {\n"
-"    color: rgb(24, 24, 24);\n"
-"    background-color: rgb(245, 245, 245);\n"
-"}\n"
-"\n"
 "QHeaderView::section {\n"
 "    background-color: rgb(29, 29, 29);\n"
 "    border: 1px solid rgb(245, 245, 245)\n"
@@ -83,15 +73,23 @@ class Ui_MainWindow(object):
 "    padding: 2px\n"
 "}\n"
 "\n"
-"QTableWidget::item:selected{ \n"
+"QAbstractItemView::item:selected{ \n"
 "    background-color: white;\n"
 "    color: black\n"
 "}\n"
 "")
         self.centralwidget.setObjectName("centralwidget")
         self.generate_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.generate_btn.setGeometry(QtCore.QRect(420, 660, 221, 51))
-        self.generate_btn.setStyleSheet("")
+        self.generate_btn.setGeometry(QtCore.QRect(280, 670, 221, 51))
+        self.generate_btn.setStyleSheet("#generate_btn {\n"
+"    background-color: rgb(29, 185, 84);\n"
+"    color: rgb(6, 11, 8);\n"
+"}\n"
+"\n"
+"#generate_btn:hover {\n"
+"    color: rgb(24, 24, 24);\n"
+"    background-color: rgb(245, 245, 245);\n"
+"}")
         self.generate_btn.setObjectName("generate_btn")
         self.game_search_text = QtWidgets.QLineEdit(self.centralwidget)
         self.game_search_text.setGeometry(QtCore.QRect(10, 50, 791, 31))
@@ -257,8 +255,32 @@ class Ui_MainWindow(object):
         self.change_steam_path_btn.setGeometry(QtCore.QRect(170, 610, 201, 31))
         self.change_steam_path_btn.setStyleSheet("")
         self.change_steam_path_btn.setObjectName("change_steam_path_btn")
+        self.no_hook_checkbox = QtWidgets.QCheckBox(self.centralwidget)
+        self.no_hook_checkbox.setGeometry(QtCore.QRect(750, 670, 121, 21))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.no_hook_checkbox.setFont(font)
+        self.no_hook_checkbox.setChecked(True)
+        self.no_hook_checkbox.setObjectName("no_hook_checkbox")
+        self.run_GLR_btn = QtWidgets.QPushButton(self.centralwidget)
+        self.run_GLR_btn.setGeometry(QtCore.QRect(520, 670, 221, 51))
+        self.run_GLR_btn.setStyleSheet("#run_GLR_btn {\n"
+"    background-color: rgb(0, 116, 217);\n"
+"    color: rgb(6, 11, 8);\n"
+"}\n"
+"\n"
+"#run_GLR_btn:hover {\n"
+"    color: rgb(24, 24, 24);\n"
+"    background-color: rgb(245, 245, 245);\n"
+"}")
+        self.run_GLR_btn.setObjectName("run_GLR_btn")
+        self.no_update_checkbox = QtWidgets.QCheckBox(self.centralwidget)
+        self.no_update_checkbox.setGeometry(QtCore.QRect(750, 700, 121, 21))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.no_update_checkbox.setFont(font)
+        self.no_update_checkbox.setObjectName("no_update_checkbox")
         self.search_result.raise_()
-        self.generate_btn.raise_()
         self.game_search_text.raise_()
         self.search_btn.raise_()
         self.games_list.raise_()
@@ -274,6 +296,10 @@ class Ui_MainWindow(object):
         self.profile_create_window.raise_()
         self.set_steam_path_window.raise_()
         self.change_steam_path_btn.raise_()
+        self.no_hook_checkbox.raise_()
+        self.generate_btn.raise_()
+        self.run_GLR_btn.raise_()
+        self.no_update_checkbox.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -302,6 +328,9 @@ class Ui_MainWindow(object):
         self.label_6.setText(_translate("MainWindow", "Steam Path"))
         self.cancel_steam_path_btn.setText(_translate("MainWindow", "Cancel"))
         self.change_steam_path_btn.setText(_translate("MainWindow", "Change Steam Path"))
+        self.no_hook_checkbox.setText(_translate("MainWindow", "NoHook"))
+        self.run_GLR_btn.setText(_translate("MainWindow", "Run GLR"))
+        self.no_update_checkbox.setText(_translate("MainWindow", "NoUpdate"))
 
 
 from Qt import resources_rc
