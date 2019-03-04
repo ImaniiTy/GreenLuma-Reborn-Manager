@@ -240,7 +240,7 @@ class MainWindow(QMainWindow):
         core.os.chdir(core.config.steam_path)
         if self.is_steam_running():
             subprocess.run(["Steam.exe", "-shutdown"]) #Shutdown Steam
-            core.time.sleep(1)
+            core.time.sleep(2)
         
         subprocess.run(args)
         self.close()
