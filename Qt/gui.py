@@ -291,16 +291,13 @@ class Ui_MainWindow(object):
         self.popup_btn2 = QtWidgets.QPushButton(self.generic_popup)
         self.popup_btn2.setGeometry(QtCore.QRect(350, 110, 151, 31))
         self.popup_btn2.setObjectName("popup_btn2")
-        self.popup_text = QtWidgets.QPlainTextEdit(self.generic_popup)
-        self.popup_text.setGeometry(QtCore.QRect(20, 30, 491, 61))
+        self.popup_text = QtWidgets.QLabel(self.generic_popup)
+        self.popup_text.setGeometry(QtCore.QRect(20, 20, 491, 71))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.popup_text.setFont(font)
-        self.popup_text.setStyleSheet("#popup_text {\n"
-"    border: 0px\n"
-"}")
-        self.popup_text.setReadOnly(True)
-        self.popup_text.setPlainText("")
+        self.popup_text.setStyleSheet("border: 0px")
+        self.popup_text.setAlignment(QtCore.Qt.AlignCenter)
         self.popup_text.setObjectName("popup_text")
         self.closing_steam = QtWidgets.QWidget(self.centralwidget)
         self.closing_steam.setEnabled(False)
@@ -337,8 +334,8 @@ class Ui_MainWindow(object):
         self.generate_btn.raise_()
         self.run_GLR_btn.raise_()
         self.no_update_checkbox.raise_()
-        self.generic_popup.raise_()
         self.closing_steam.raise_()
+        self.generic_popup.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -372,6 +369,7 @@ class Ui_MainWindow(object):
         self.no_update_checkbox.setText(_translate("MainWindow", "NoUpdate"))
         self.popup_btn1.setText(_translate("MainWindow", "Ok"))
         self.popup_btn2.setText(_translate("MainWindow", "Cancel"))
+        self.popup_text.setText(_translate("MainWindow", "TextLabel"))
         self.label_8.setText(_translate("MainWindow", "Closing Steam..."))
 
 

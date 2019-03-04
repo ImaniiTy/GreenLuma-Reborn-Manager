@@ -121,6 +121,10 @@ class MainWindow(QMainWindow):
             list.addItem(item.name)
 
     def generate_app_list(self):
+        if len(profile_manager.profiles[self.main_window.profile_selector.currentText()].games) == 0:
+            self.show_popup("No games to generate.", self.dummy_callback)
+            return
+
         selected_profile = profile_manager.profiles[self.main_window.profile_selector.currentText()]
         core.createFiles(selected_profile.games)
 
@@ -219,14 +223,21 @@ class MainWindow(QMainWindow):
         self.add_selected()
 
     def show_popup(self, message, callback):
-        self.main_window.popup_text.setPlainText(message)
+        self.main_window.popup_text.setText(message)
         self.main_window.popup_btn1.clicked.connect(callback)
 
         self.toggle_popup()
 
+    def dummy_callback(self):
+        self.close_popup()
+
     def toggle_popup(self):
         self.toggle_hidden(self.main_window.generic_popup)
         self.toggle_enable(self.main_window.generic_popup)
+    
+    def close_popup(self):
+        self.main_window.generic_popup.setHidden(True)
+        self.main_window.generic_popup.setEnabled(False)
 
     def is_steam_running(self):
         for process in psutil.process_iter():
@@ -236,9 +247,11 @@ class MainWindow(QMainWindow):
         return False
 
     def run_GLR(self):
+        self.close_popup()
+
         if len(profile_manager.profiles[self.main_window.profile_selector.currentText()].games) == 0:
+            self.show_popup("No games to generate.", self.dummy_callback)
             return
-        self.toggle_popup()
         self.generate_app_list()
 
         args = ["GreenLuma_Reborn.exe", "-NoQuestion"]

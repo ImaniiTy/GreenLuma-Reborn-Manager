@@ -703,13 +703,13 @@ color: rgb(6, 11, 8);</string>
       <string>Cancel</string>
      </property>
     </widget>
-    <widget class="QPlainTextEdit" name="popup_text">
+    <widget class="QLabel" name="popup_text">
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>30</y>
+       <y>20</y>
        <width>491</width>
-       <height>61</height>
+       <height>71</height>
       </rect>
      </property>
      <property name="font">
@@ -718,15 +718,13 @@ color: rgb(6, 11, 8);</string>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">#popup_text {
-	border: 0px
-}</string>
+      <string notr="true">border: 0px</string>
      </property>
-     <property name="readOnly">
-      <bool>true</bool>
+     <property name="text">
+      <string>TextLabel</string>
      </property>
-     <property name="plainText">
-      <string/>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </widget>
@@ -792,8 +790,8 @@ color: rgb(6, 11, 8);</string>
    <zorder>generate_btn</zorder>
    <zorder>run_GLR_btn</zorder>
    <zorder>no_update_checkbox</zorder>
-   <zorder>generic_popup</zorder>
    <zorder>closing_steam</zorder>
+   <zorder>generic_popup</zorder>
   </widget>
  </widget>
  <resources>
