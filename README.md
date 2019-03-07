@@ -1,5 +1,5 @@
 # GreenLuma Reborn Manager
-A app to manage the Steam unlocker "GreenLuma Reborn" AppList folder
+An app to manage the Steam unlocker "GreenLuma Reborn" AppList folder
 
 ## What is [GreenLuma Reborn](https://cs.rin.ru/forum/viewtopic.php?f=29&t=80797) ?
 GreenLuma Reborn (GLR) is a Steam unlocker made by Steam006 that is used to obtain games from family shared libraries and DLC for games. There's much more to it, though.
