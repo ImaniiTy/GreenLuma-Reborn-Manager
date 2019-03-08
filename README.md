@@ -38,7 +38,7 @@ I **highly advise** you to follow the "Legit stealth mode" installation instruct
   * All the profiles info are in JSON files so you can easily share with anyone
     * The profiles are saved on: C:\Users\YOUR_USER\AppData\Local\GLR_Manager\Profiles
 
-![alt text](https://puu.sh/CUNe0/b28e0502b2.png)
+![alt text](https://i.imgur.com/F4dvAjV.png)
   
 ## What's the difference between your app and [GreenLuma Reborn App](https://github.com/linkthehylian/GreenLuma-Reborn-App)?
   Well the main difference, like i said on the topic above, is that on my app you can search the game you want to add directly from the program and my version is more focused on the management of the folder (and if you're like me who don't like having all the games unlocked at the same time the profile system can help you alot)
@@ -57,4 +57,4 @@ I **highly advise** you to follow the "Legit stealth mode" installation instruct
 ## Authors
 [**ImaniiTy**](https://github.com/ImaniiTy):
 
-![alt text](https://puu.sh/CTdkx/65e67323e5.png)
+![alt text](https://i.imgur.com/P9nbEG6.png)
