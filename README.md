@@ -47,7 +47,7 @@ I **highly advise** you to follow the "Legit stealth mode" installation instruct
 * **Work on the UI(I still suck at UI design)**
 * **Add varius QoL stuff(Would love some ideas for this)**
 * Add a way to load previous games on your AppList folder
-* Add a way to launch GLR direct from the app (Done)
+* ~~Add a way to launch GLR direct from the app~~
 * Add some user input validation
   
 ## Built With
