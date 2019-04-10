@@ -111,8 +111,12 @@ class MainWindow(QMainWindow):
         self.search_thread.start()
 
     def search_games_done(self, result):
-        self.toggle_hidden(self.main_window.searching_frame)
-        self.populate_table(self.main_window.search_result, result)
+        if type(result) is list:
+            self.toggle_hidden(self.main_window.searching_frame)
+            self.populate_table(self.main_window.search_result, result)
+        else:
+            self.toggle_hidden(self.main_window.searching_frame)
+            self.show_popup("Can't connect to Steamdb. Check if you have internet connection.", self.dummy_callback)
 
     
     def populate_list(self, list, data):
@@ -127,6 +131,7 @@ class MainWindow(QMainWindow):
 
         selected_profile = profile_manager.profiles[self.main_window.profile_selector.currentText()]
         core.createFiles(selected_profile.games)
+        self.show_popup("AppList Folder Generated", self.dummy_callback)
 
     def show_profile_games(self, profile):
         list = self.main_window.games_list

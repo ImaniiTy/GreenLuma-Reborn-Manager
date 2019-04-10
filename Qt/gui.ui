@@ -179,6 +179,9 @@ border: 0px</string>
     <property name="selectionMode">
      <enum>QAbstractItemView::ExtendedSelection</enum>
     </property>
+    <property name="sortingEnabled">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QComboBox" name="profile_selector">
     <property name="geometry">
@@ -725,6 +728,9 @@ color: rgb(6, 11, 8);</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
      </property>
     </widget>
    </widget>

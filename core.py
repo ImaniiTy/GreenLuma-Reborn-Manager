@@ -5,6 +5,7 @@ import json
 import time
 from bs4 import BeautifulSoup as parser
 from concurrent.futures.thread import ThreadPoolExecutor
+from requests.exceptions import ConnectionError, ConnectTimeout
 
 BASE_PATH = "{}/GLR_Manager".format(os.getenv("LOCALAPPDATA"))
 PROFILES_PATH = "{}/Profiles".format(BASE_PATH)
@@ -181,6 +182,10 @@ def queryfy(input_):
 
 def queryGames(input_):
     scraper = cfscrape.create_scraper()
-    html = scraper.get("https://steamdb.info/search/?a=app&q={0}&type=-1&category=0".format(queryfy(input_))).content
-
+    try:
+        result = scraper.get("https://steamdb.info/search/?a=app&q={0}&type=-1&category=0".format(queryfy(input_)))
+    except (ConnectionError, ConnectTimeout) as err:
+        return err
+    
+    html = result.content
     return parseGames(html)
