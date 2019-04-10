@@ -8,7 +8,6 @@ import psutil
 
 profile_manager = core.ProfileManager()
 games = []
-games_dict = {}
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -34,18 +33,7 @@ class MainWindow(QMainWindow):
         self.show_profile_names()
         self.show_profile_games(profile_manager.profiles[self.main_window.profile_selector.currentText()])
         self.setup_steam_path()
-
-        #Table Setup
-        self.main_window.search_result.setColumnCount(3)
-
-        header = self.main_window.search_result.horizontalHeader()
-        header.setSectionResizeMode(QHeaderView.ResizeToContents)
-        header.setMaximumSectionSize(580)
-        header.sectionClicked.connect(lambda index : self.main_window.search_result.horizontalHeader().setSortIndicator(index, Qt.AscendingOrder))
-
-        self.main_window.search_result.setHorizontalHeaderItem(0, QTableWidgetItem("Id"))
-        self.main_window.search_result.setHorizontalHeaderItem(1, QTableWidgetItem("Name"))
-        self.main_window.search_result.setHorizontalHeaderItem(2, QTableWidgetItem("Type"))
+        self.setup_search_table()
 
         #Shortcuts
         del_game = QShortcut(QKeySequence(Qt.Key_Delete), self.main_window.games_list)
@@ -118,6 +106,17 @@ class MainWindow(QMainWindow):
             self.toggle_hidden(self.main_window.searching_frame)
             self.show_popup("Can't connect to Steamdb. Check if you have internet connection.", self.dummy_callback)
 
+    def setup_search_table(self):
+        self.main_window.search_result.setColumnCount(3)
+
+        header = self.main_window.search_result.horizontalHeader()
+        header.setSectionResizeMode(QHeaderView.ResizeToContents)
+        header.setMaximumSectionSize(580)
+        header.sectionClicked.connect(lambda index : self.main_window.search_result.horizontalHeader().setSortIndicator(index, Qt.AscendingOrder))
+
+        self.main_window.search_result.setHorizontalHeaderItem(0, QTableWidgetItem("Id"))
+        self.main_window.search_result.setHorizontalHeaderItem(1, QTableWidgetItem("Name"))
+        self.main_window.search_result.setHorizontalHeaderItem(2, QTableWidgetItem("Type"))
     
     def populate_list(self, list, data):
         list.clear()
@@ -153,12 +152,10 @@ class MainWindow(QMainWindow):
         table.setSortingEnabled(False)
         table.clearSelection()
         table.setRowCount(0)
-        games_dict.clear()
         #----
         table.setRowCount(len(data))
 
         for i, item in enumerate(data):
-            games_dict[item.name] = item
             for j, value in enumerate(item.to_list()):
                 table_item = QTableWidgetItem(value)
                 if j == 1:
