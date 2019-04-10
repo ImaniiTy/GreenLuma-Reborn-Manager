@@ -23,7 +23,7 @@ I **highly advise** you to follow the "Legit stealth mode" installation instruct
 
 #### Credits to [@linkthehylian](https://github.com/linkthehylian) for this brief explanation
 
-## Latest release: **[GreenLuma Reborn Manager v1.2.0](https://github.com/ImaniiTy/GreenLuma-Reborn-Manager/releases)**
+## Latest release: **[GreenLuma Reborn Manager v1.2.1](https://github.com/ImaniiTy/GreenLuma-Reborn-Manager/releases)**
 
 ## Features
   * Easily manage profiles for various games(good to circumvent the 160 id limit)
@@ -47,7 +47,7 @@ I **highly advise** you to follow the "Legit stealth mode" installation instruct
 * **Work on the UI(I still suck at UI design)**
 * **Add varius QoL stuff(Would love some ideas for this)**
 * Add a way to load previous games on your AppList folder
-* Add a way to launch GLR direct from the app (Done)
+* ~~Add a way to launch GLR direct from the app~~
 * Add some user input validation
   
 ## Built With
