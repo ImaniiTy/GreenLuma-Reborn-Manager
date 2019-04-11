@@ -57,4 +57,4 @@ I **highly advise** you to follow the "Legit stealth mode" installation instruct
 ## Authors
 [**ImaniiTy**](https://github.com/ImaniiTy):
 
-![alt text](https://i.imgur.com/P9nbEG6.png)
+![alt text](https://i.imgur.com/zmS7oBs.gifv)
