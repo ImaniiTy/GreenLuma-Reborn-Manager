@@ -132,6 +132,14 @@ class MainWindow(QMainWindow):
         core.createFiles(selected_profile.games)
         self.show_popup("AppList Folder Generated", self.dummy_callback)
 
+    def generate_app_list_no_popup(self):
+        if len(profile_manager.profiles[self.main_window.profile_selector.currentText()].games) == 0:
+            self.show_popup("No games to generate.", self.dummy_callback)
+            return
+
+        selected_profile = profile_manager.profiles[self.main_window.profile_selector.currentText()]
+        core.createFiles(selected_profile.games)
+
     def show_profile_games(self, profile):
         list = self.main_window.games_list
 
@@ -254,7 +262,7 @@ class MainWindow(QMainWindow):
         if len(profile_manager.profiles[self.main_window.profile_selector.currentText()].games) == 0:
             self.show_popup("No games to generate.", self.dummy_callback)
             return
-        self.generate_app_list()
+        self.generate_app_list_no_popup()
 
         args = ["GreenLuma_Reborn.exe", "-NoQuestion"]
         core.config.no_hook = self.main_window.no_hook_checkbox.isChecked()
