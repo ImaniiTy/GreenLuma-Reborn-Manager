@@ -1,3 +1,6 @@
+## (OUTDATED)
+### i'll update this week!
+
 # GreenLuma Reborn Manager
 An app to manage the Steam unlocker "GreenLuma Reborn" AppList folder
 
