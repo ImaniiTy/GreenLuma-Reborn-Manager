@@ -1,5 +1,5 @@
 ## Warning!!!
-### The "Run GLR" button is broken right now, i'll update the app and fix it this week! But you can still manage the Applist folder normally you will only need to run GLR by youself for now
+### The "Run GLR" button is broken right now, i'll update the app and fix it this week! But everything else is working fine and you can still manage the Applist folder normally you will only need to run GLR by youself for now
 
 # GreenLuma Reborn Manager
 An app to manage the Steam unlocker "GreenLuma Reborn" AppList folder
