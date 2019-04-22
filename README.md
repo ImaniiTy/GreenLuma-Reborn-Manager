@@ -1,6 +1,3 @@
-## Warning!!!
-### The "Run GLR" button is broken right now, i'll update the app and fix it this week! But everything else is working fine and you can still manage the Applist folder normally you will only need to run GLR by youself for now
-
 # GreenLuma Reborn Manager
 An app to manage the Steam unlocker "GreenLuma Reborn" AppList folder
 
@@ -26,7 +23,7 @@ I **highly advise** you to follow the "Legit stealth mode" installation instruct
 
 #### Credits to [@linkthehylian](https://github.com/linkthehylian) for this brief explanation
 
-## Latest release: **[GreenLuma Reborn Manager v1.2.2](https://github.com/ImaniiTy/GreenLuma-Reborn-Manager/releases)**
+## Latest release: **[GreenLuma Reborn Manager v1.2.4](https://github.com/ImaniiTy/GreenLuma-Reborn-Manager/releases)**
 
 ## Features
   * Easily manage profiles for various games(good to circumvent the 160 id limit)
