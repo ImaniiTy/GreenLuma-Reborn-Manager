@@ -647,24 +647,6 @@ color: rgb(6, 11, 8);</string>
      <string>Run GLR</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="no_update_checkbox">
-    <property name="geometry">
-     <rect>
-      <x>750</x>
-      <y>700</y>
-      <width>121</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>NoUpdate</string>
-    </property>
-   </widget>
    <widget class="QWidget" name="generic_popup" native="true">
     <property name="enabled">
      <bool>false</bool>
@@ -795,7 +777,6 @@ color: rgb(6, 11, 8);</string>
    <zorder>no_hook_checkbox</zorder>
    <zorder>generate_btn</zorder>
    <zorder>run_GLR_btn</zorder>
-   <zorder>no_update_checkbox</zorder>
    <zorder>closing_steam</zorder>
    <zorder>generic_popup</zorder>
   </widget>

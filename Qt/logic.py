@@ -2,6 +2,7 @@ from Qt.gui import Ui_MainWindow
 from PyQt5.QtWidgets import QMainWindow, QHeaderView, QTableWidgetItem, QShortcut, QListWidget
 from PyQt5.QtCore import  QAbstractItemModel, Qt, QModelIndex, QVariant, QThread, QEvent, pyqtSignal
 from PyQt5.QtGui import QKeySequence, QIcon
+from shutil import copyfile
 import core
 import subprocess
 import psutil
@@ -26,7 +27,6 @@ class MainWindow(QMainWindow):
         self.main_window.closing_steam.setHidden(True)
         self.main_window.generic_popup.setHidden(True)
         self.main_window.no_hook_checkbox.setChecked(core.config.no_hook)
-        self.main_window.no_update_checkbox.setChecked(core.config.no_update)
         self.populate_list(self.main_window.games_list, games)
         self.main_window.games_list.dropEvent = self.drop_event_handler
         self.populate_table(self.main_window.search_result, games)
@@ -264,15 +264,17 @@ class MainWindow(QMainWindow):
             return
         self.generate_app_list_no_popup()
 
-        args = ["GreenLuma_Reborn.exe", "-NoQuestion"]
+        args = ["DLLInjector.exe", "-DisablePreferSystem32Images", "-CreateFile1", "NoQuestion.bin"]
         core.config.no_hook = self.main_window.no_hook_checkbox.isChecked()
-        core.config.no_update = self.main_window.no_update_checkbox.isChecked()
         core.config.export_config()
 
         if core.config.no_hook:
-            args.append("-NoHook")
-        if core.config.no_update:
-            args.append("-NoUpdate")
+            args.append("-CreateFile2")
+            args.append("NoHook.bin")
+            copyfile("NoHook.ini", core.config.steam_path + "/DllInjector.ini")
+        else:
+            copyfile("Hook.ini", core.config.steam_path + "/DllInjector.ini")
+
 
         core.os.chdir(core.config.steam_path)
         if self.is_steam_running():
@@ -282,7 +284,7 @@ class MainWindow(QMainWindow):
                 core.time.sleep(1)
             core.time.sleep(1)
         
-        subprocess.run(args)
+        subprocess.Popen(args)
         self.close()
 
 class SearchThread(QThread):
