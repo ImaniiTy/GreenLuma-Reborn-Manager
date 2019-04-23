@@ -1,14 +1,16 @@
 import cfscrape
 import os
+import subprocess
 import shutil
 import json
 import time
+import sys
 from bs4 import BeautifulSoup as parser
 from requests.exceptions import ConnectionError, ConnectTimeout
 
 BASE_PATH = "{}/GLR_Manager".format(os.getenv("LOCALAPPDATA"))
 PROFILES_PATH = "{}/Profiles".format(BASE_PATH)
-CURRENT_VERSION = "1.2.5"
+CURRENT_VERSION = "1.3.0"
 
 class Game:
     def __init__(self,id,name,type):
@@ -81,8 +83,12 @@ class ProfileManager:
 
         for filename in os.listdir(PROFILES_PATH):
             with open("{}/{}".format(PROFILES_PATH,filename), "r") as file:
-                data = json.load(file)
-                self.register_profile(Profile.from_JSON(data))
+                try:
+                    data = json.load(file)
+                    self.register_profile(Profile.from_JSON(data))
+                except json.JSONDecodeError:
+                    file.close()
+                    os.remove("{}/{}".format(PROFILES_PATH,filename))
 
     def register_profile(self, profile):
         self.profiles[profile.name] = profile
@@ -188,3 +194,15 @@ def queryGames(input_):
     
     html = result.content
     return parseGames(html)
+
+def runUpdater():
+    if "-NoUpdate" not in sys.argv:
+        subprocess.run("GLR Updater.exe")
+    
+    # Post update measure
+    if "-PostUpdate" in sys.argv:
+        for fl in os.listdir("./"):
+            if fl.startswith("new_"):
+                real_name = fl.replace("new_","")
+                os.remove(real_name)
+                os.rename(fl, real_name)
