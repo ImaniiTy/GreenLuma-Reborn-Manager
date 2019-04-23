@@ -93,6 +93,9 @@ QAbstractItemView::item:selected{
       <height>51</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="styleSheet">
      <string notr="true">#generate_btn {
 	background-color: rgb(29, 185, 84);
@@ -141,6 +144,9 @@ color: rgb(6, 11, 8);</string>
       <width>51</width>
       <height>26</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(255, 255, 255);
@@ -191,6 +197,9 @@ border: 0px</string>
       <width>281</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>ArrowCursor</cursorShape>
     </property>
     <property name="focusPolicy">
      <enum>Qt::NoFocus</enum>
@@ -259,6 +268,9 @@ font: 75 11pt &quot;Consolas&quot;;</string>
       <height>31</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="styleSheet">
      <string notr="true"/>
     </property>
@@ -274,6 +286,9 @@ font: 75 11pt &quot;Consolas&quot;;</string>
       <width>141</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
      <string notr="true"/>
@@ -328,6 +343,9 @@ color: rgb(6, 11, 8);</string>
        <height>31</height>
       </rect>
      </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
      <property name="text">
       <string>Create</string>
      </property>
@@ -340,6 +358,9 @@ color: rgb(6, 11, 8);</string>
        <width>151</width>
        <height>31</height>
       </rect>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
      </property>
      <property name="text">
       <string>Cancel</string>
@@ -413,6 +434,9 @@ color: rgb(6, 11, 8);</string>
       <height>31</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="styleSheet">
      <string notr="true"/>
     </property>
@@ -428,6 +452,9 @@ color: rgb(6, 11, 8);</string>
       <width>121</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
      <string notr="true"/>
@@ -547,6 +574,9 @@ color: rgb(6, 11, 8);</string>
        <height>31</height>
       </rect>
      </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
      <property name="text">
       <string>Save</string>
      </property>
@@ -581,6 +611,9 @@ color: rgb(6, 11, 8);</string>
        <height>31</height>
       </rect>
      </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
      <property name="text">
       <string>Cancel</string>
      </property>
@@ -594,6 +627,9 @@ color: rgb(6, 11, 8);</string>
       <width>201</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
      <string notr="true"/>
@@ -631,6 +667,9 @@ color: rgb(6, 11, 8);</string>
       <width>221</width>
       <height>51</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
      <string notr="true">#run_GLR_btn {
@@ -671,6 +710,9 @@ color: rgb(6, 11, 8);</string>
        <height>31</height>
       </rect>
      </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
      <property name="text">
       <string>Ok</string>
      </property>
@@ -683,6 +725,9 @@ color: rgb(6, 11, 8);</string>
        <width>151</width>
        <height>31</height>
       </rect>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
      </property>
      <property name="text">
       <string>Cancel</string>
@@ -758,6 +803,33 @@ color: rgb(6, 11, 8);</string>
      </property>
     </widget>
    </widget>
+   <widget class="QCheckBox" name="compatibility_mode_checkbox">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>700</y>
+      <width>151</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Enable this if you're having problem with AV detection</string>
+    </property>
+    <property name="text">
+     <string>Compatibility Mode</string>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
+   </widget>
    <zorder>search_result</zorder>
    <zorder>game_search_text</zorder>
    <zorder>search_btn</zorder>
@@ -779,6 +851,7 @@ color: rgb(6, 11, 8);</string>
    <zorder>run_GLR_btn</zorder>
    <zorder>closing_steam</zorder>
    <zorder>generic_popup</zorder>
+   <zorder>compatibility_mode_checkbox</zorder>
   </widget>
  </widget>
  <resources>

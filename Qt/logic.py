@@ -6,6 +6,7 @@ from shutil import copyfile
 import core
 import subprocess
 import psutil
+import fileinput
 
 profile_manager = core.ProfileManager()
 games = []
@@ -27,6 +28,7 @@ class MainWindow(QMainWindow):
         self.main_window.closing_steam.setHidden(True)
         self.main_window.generic_popup.setHidden(True)
         self.main_window.no_hook_checkbox.setChecked(core.config.no_hook)
+        self.main_window.compatibility_mode_checkbox.setChecked(core.config.compatibility_mode)
         self.populate_list(self.main_window.games_list, games)
         self.main_window.games_list.dropEvent = self.drop_event_handler
         self.populate_table(self.main_window.search_result, games)
@@ -256,6 +258,16 @@ class MainWindow(QMainWindow):
         
         return False
 
+    def replaceConfig(self, name, new_value):
+        with fileinput.input(core.config.steam_path + "/DllInjector.ini", inplace=True) as fp:
+            for line in fp:
+                if not line.startswith("#"):
+                    tokens = line.split("=")
+                    if tokens[0].strip() == name:
+                        tokens[1] = new_value
+                        line = "=".join(tokens) + "\n"
+                print(line, end = "")
+
     def run_GLR(self):
         self.close_popup()
 
@@ -266,14 +278,20 @@ class MainWindow(QMainWindow):
 
         args = ["DLLInjector.exe", "-DisablePreferSystem32Images", "-CreateFile1", "NoQuestion.bin"]
         core.config.no_hook = self.main_window.no_hook_checkbox.isChecked()
+        core.config.compatibility_mode = self.main_window.compatibility_mode_checkbox.isChecked()
         core.config.export_config()
+
+        if core.config.compatibility_mode:
+            self.replaceConfig("EnableMitigationsOnChildProcess"," 0")
+        else:
+            self.replaceConfig("EnableMitigationsOnChildProcess"," 1")
 
         if core.config.no_hook:
             args.append("-CreateFile2")
             args.append("NoHook.bin")
-            copyfile("NoHook.ini", core.config.steam_path + "/DllInjector.ini")
+            self.replaceConfig("Exe"," Steam.exe")
         else:
-            copyfile("Hook.ini", core.config.steam_path + "/DllInjector.ini")
+            self.replaceConfig("Exe"," Steam.exe -inhibitbootstrap")
 
 
         core.os.chdir(core.config.steam_path)

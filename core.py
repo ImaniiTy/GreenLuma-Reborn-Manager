@@ -8,7 +8,7 @@ from requests.exceptions import ConnectionError, ConnectTimeout
 
 BASE_PATH = "{}/GLR_Manager".format(os.getenv("LOCALAPPDATA"))
 PROFILES_PATH = "{}/Profiles".format(BASE_PATH)
-CURRENT_VERSION = "1.2.4"
+CURRENT_VERSION = "1.2.2"
 
 class Game:
     def __init__(self,id,name,type):
@@ -99,15 +99,16 @@ class ProfileManager:
         os.remove("{}/{}.json".format(PROFILES_PATH,profile_name))
 
 class Config:
-    def __init__(self, steam_path = "AppList", is_path_setup = False, no_hook = True, version = CURRENT_VERSION, last_profile = "default"):
+    def __init__(self, steam_path = "AppList", is_path_setup = False, no_hook = True, compatibility_mode = False, version = CURRENT_VERSION, last_profile = "default"):
         self.steam_path = steam_path
         self.is_path_setup = is_path_setup
         self.no_hook = no_hook
+        self.compatibility_mode = compatibility_mode
         self.version = version
         self.last_profile = last_profile
 
     def export_config(self):
-        data = {"steam_path": self.steam_path, "is_path_setup": self.is_path_setup, "no_hook": self.no_hook, "version": CURRENT_VERSION, "last_profile": self.last_profile}
+        data = {"steam_path": self.steam_path, "is_path_setup": self.is_path_setup, "no_hook": self.no_hook, "compatibility_mode": self.compatibility_mode, "version": CURRENT_VERSION, "last_profile": self.last_profile}
         with open("{}/config.json".format(BASE_PATH), "w") as outfile:
             json.dump(data,outfile,indent=4)
 
@@ -117,7 +118,8 @@ class Config:
         config = Config()
         return Config(data["steam_path"] if "steam_path" in keys else config.steam_path, 
                       data["is_path_setup"] if "is_path_setup" in keys else config.is_path_setup, 
-                      data["no_hook"] if "no_hook" in keys else config.no_hook, 
+                      data["no_hook"] if "no_hook" in keys else config.no_hook,
+                      data["compatibility_mode"] if "compatibility_mode" in keys else config.compatibility_mode,
                       data["version"] if "version" in keys else config.version,
                       data["last_profile"] if "last_profile" in keys else config.last_profile)
 

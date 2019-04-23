@@ -81,6 +81,7 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName("centralwidget")
         self.generate_btn = QtWidgets.QPushButton(self.centralwidget)
         self.generate_btn.setGeometry(QtCore.QRect(280, 670, 221, 51))
+        self.generate_btn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.generate_btn.setStyleSheet("#generate_btn {\n"
 "    background-color: rgb(29, 185, 84);\n"
 "    color: rgb(6, 11, 8);\n"
@@ -104,6 +105,7 @@ class Ui_MainWindow(object):
         self.game_search_text.setObjectName("game_search_text")
         self.search_btn = QtWidgets.QPushButton(self.centralwidget)
         self.search_btn.setGeometry(QtCore.QRect(740, 52, 51, 26))
+        self.search_btn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.search_btn.setStyleSheet("background-color: rgb(255, 255, 255);\n"
 "border-radius: 4px;\n"
 "border: 0px")
@@ -121,6 +123,7 @@ class Ui_MainWindow(object):
         self.games_list.setObjectName("games_list")
         self.profile_selector = QtWidgets.QComboBox(self.centralwidget)
         self.profile_selector.setGeometry(QtCore.QRect(820, 50, 281, 31))
+        self.profile_selector.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
         self.profile_selector.setFocusPolicy(QtCore.Qt.NoFocus)
         self.profile_selector.setAcceptDrops(False)
         self.profile_selector.setStyleSheet("QWidget:item{\n"
@@ -144,10 +147,12 @@ class Ui_MainWindow(object):
         self.label_2.setObjectName("label_2")
         self.create_profile = QtWidgets.QPushButton(self.centralwidget)
         self.create_profile.setGeometry(QtCore.QRect(820, 90, 121, 31))
+        self.create_profile.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.create_profile.setStyleSheet("")
         self.create_profile.setObjectName("create_profile")
         self.add_to_profile = QtWidgets.QPushButton(self.centralwidget)
         self.add_to_profile.setGeometry(QtCore.QRect(10, 610, 141, 31))
+        self.add_to_profile.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.add_to_profile.setStyleSheet("")
         self.add_to_profile.setObjectName("add_to_profile")
         self.profile_create_window = QtWidgets.QWidget(self.centralwidget)
@@ -167,9 +172,11 @@ class Ui_MainWindow(object):
         self.profile_name.setObjectName("profile_name")
         self.create_profile_btn = QtWidgets.QPushButton(self.profile_create_window)
         self.create_profile_btn.setGeometry(QtCore.QRect(30, 110, 151, 31))
+        self.create_profile_btn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.create_profile_btn.setObjectName("create_profile_btn")
         self.cancel_profile_btn = QtWidgets.QPushButton(self.profile_create_window)
         self.cancel_profile_btn.setGeometry(QtCore.QRect(290, 110, 151, 31))
+        self.cancel_profile_btn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.cancel_profile_btn.setObjectName("cancel_profile_btn")
         self.label_3 = QtWidgets.QLabel(self.profile_create_window)
         self.label_3.setGeometry(QtCore.QRect(32, 19, 130, 21))
@@ -193,10 +200,12 @@ class Ui_MainWindow(object):
         self.search_result.verticalHeader().setStretchLastSection(False)
         self.delete_profile = QtWidgets.QPushButton(self.centralwidget)
         self.delete_profile.setGeometry(QtCore.QRect(960, 90, 141, 31))
+        self.delete_profile.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.delete_profile.setStyleSheet("")
         self.delete_profile.setObjectName("delete_profile")
         self.remove_game = QtWidgets.QPushButton(self.centralwidget)
         self.remove_game.setGeometry(QtCore.QRect(820, 610, 121, 31))
+        self.remove_game.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.remove_game.setStyleSheet("")
         self.remove_game.setObjectName("remove_game")
         self.label_4 = QtWidgets.QLabel(self.centralwidget)
@@ -240,6 +249,7 @@ class Ui_MainWindow(object):
         self.steam_path.setObjectName("steam_path")
         self.save_steam_path = QtWidgets.QPushButton(self.set_steam_path_window)
         self.save_steam_path.setGeometry(QtCore.QRect(50, 110, 151, 31))
+        self.save_steam_path.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.save_steam_path.setObjectName("save_steam_path")
         self.label_6 = QtWidgets.QLabel(self.set_steam_path_window)
         self.label_6.setGeometry(QtCore.QRect(32, 19, 130, 21))
@@ -250,9 +260,11 @@ class Ui_MainWindow(object):
         self.label_6.setObjectName("label_6")
         self.cancel_steam_path_btn = QtWidgets.QPushButton(self.set_steam_path_window)
         self.cancel_steam_path_btn.setGeometry(QtCore.QRect(270, 110, 151, 31))
+        self.cancel_steam_path_btn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.cancel_steam_path_btn.setObjectName("cancel_steam_path_btn")
         self.change_steam_path_btn = QtWidgets.QPushButton(self.centralwidget)
         self.change_steam_path_btn.setGeometry(QtCore.QRect(170, 610, 201, 31))
+        self.change_steam_path_btn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.change_steam_path_btn.setStyleSheet("")
         self.change_steam_path_btn.setObjectName("change_steam_path_btn")
         self.no_hook_checkbox = QtWidgets.QCheckBox(self.centralwidget)
@@ -264,6 +276,7 @@ class Ui_MainWindow(object):
         self.no_hook_checkbox.setObjectName("no_hook_checkbox")
         self.run_GLR_btn = QtWidgets.QPushButton(self.centralwidget)
         self.run_GLR_btn.setGeometry(QtCore.QRect(520, 670, 221, 51))
+        self.run_GLR_btn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.run_GLR_btn.setStyleSheet("#run_GLR_btn {\n"
 "    background-color: rgb(0, 116, 217);\n"
 "    color: rgb(6, 11, 8);\n"
@@ -281,9 +294,11 @@ class Ui_MainWindow(object):
         self.generic_popup.setObjectName("generic_popup")
         self.popup_btn1 = QtWidgets.QPushButton(self.generic_popup)
         self.popup_btn1.setGeometry(QtCore.QRect(30, 110, 151, 31))
+        self.popup_btn1.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.popup_btn1.setObjectName("popup_btn1")
         self.popup_btn2 = QtWidgets.QPushButton(self.generic_popup)
         self.popup_btn2.setGeometry(QtCore.QRect(350, 110, 151, 31))
+        self.popup_btn2.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.popup_btn2.setObjectName("popup_btn2")
         self.popup_text = QtWidgets.QLabel(self.generic_popup)
         self.popup_text.setGeometry(QtCore.QRect(20, 20, 491, 71))
@@ -309,6 +324,14 @@ class Ui_MainWindow(object):
         self.label_8.setStyleSheet("border: 0px")
         self.label_8.setAlignment(QtCore.Qt.AlignCenter)
         self.label_8.setObjectName("label_8")
+        self.compatibility_mode_checkbox = QtWidgets.QCheckBox(self.centralwidget)
+        self.compatibility_mode_checkbox.setEnabled(True)
+        self.compatibility_mode_checkbox.setGeometry(QtCore.QRect(750, 700, 151, 21))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.compatibility_mode_checkbox.setFont(font)
+        self.compatibility_mode_checkbox.setChecked(False)
+        self.compatibility_mode_checkbox.setObjectName("compatibility_mode_checkbox")
         self.search_result.raise_()
         self.game_search_text.raise_()
         self.search_btn.raise_()
@@ -330,6 +353,7 @@ class Ui_MainWindow(object):
         self.run_GLR_btn.raise_()
         self.closing_steam.raise_()
         self.generic_popup.raise_()
+        self.compatibility_mode_checkbox.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -365,6 +389,8 @@ class Ui_MainWindow(object):
         self.popup_btn2.setText(_translate("MainWindow", "Cancel"))
         self.popup_text.setText(_translate("MainWindow", "TextLabel"))
         self.label_8.setText(_translate("MainWindow", "Closing Steam..."))
+        self.compatibility_mode_checkbox.setToolTip(_translate("MainWindow", "Enable this if you\'re having problem with AV detection"))
+        self.compatibility_mode_checkbox.setText(_translate("MainWindow", "Compatibility Mode"))
 
 
 from Qt import resources_rc
