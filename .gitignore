@@ -15,3 +15,10 @@
 dist/*
 build/*
 __pycache__/
+
+# GLR_Updater
+GLR_Updater/.vs
+GLR_Updater/bin
+GLR_Updater/obj
+GLR_Updater/packages
+GLR_Updater/*.csproj.user

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.202
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GLR Updater", "GLR Updater.csproj", "{8A2401D7-EE59-48EC-A6D8-069EF807C82A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8A2401D7-EE59-48EC-A6D8-069EF807C82A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A2401D7-EE59-48EC-A6D8-069EF807C82A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A2401D7-EE59-48EC-A6D8-069EF807C82A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A2401D7-EE59-48EC-A6D8-069EF807C82A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4DFAD43A-BE16-44E0-B5B0-4FF3DC8DC199}
+	EndGlobalSection
+EndGlobal
