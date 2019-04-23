@@ -8,7 +8,7 @@ from requests.exceptions import ConnectionError, ConnectTimeout
 
 BASE_PATH = "{}/GLR_Manager".format(os.getenv("LOCALAPPDATA"))
 PROFILES_PATH = "{}/Profiles".format(BASE_PATH)
-CURRENT_VERSION = "1.2.2"
+CURRENT_VERSION = "1.2.5"
 
 class Game:
     def __init__(self,id,name,type):
