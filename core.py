@@ -149,6 +149,7 @@ class Config:
             with open("{}/config.json".format(BASE_PATH), "r") as file:
                 data = json.load(file)
                 config = Config.from_JSON(data)
+                config.version = CURRENT_VERSION
                 config.export_config()
                 return config
 
