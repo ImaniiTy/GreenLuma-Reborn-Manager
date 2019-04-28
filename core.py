@@ -10,7 +10,7 @@ from requests.exceptions import ConnectionError, ConnectTimeout
 
 BASE_PATH = "{}/GLR_Manager".format(os.getenv("LOCALAPPDATA"))
 PROFILES_PATH = "{}/Profiles".format(BASE_PATH)
-CURRENT_VERSION = "1.3.0"
+CURRENT_VERSION = "1.3.1"
 
 class Game:
     def __init__(self,id,name,type):
@@ -43,9 +43,9 @@ class Game:
         return games
 
 class Profile:
-    def __init__(self,name = 'default',games = None):
+    def __init__(self,name = 'default',games = []):
         self.name = name
-        self.games = [] if games is None else games
+        self.games = games
 
     def add_game(self,game):
         self.games.append(game)
@@ -105,37 +105,44 @@ class ProfileManager:
         os.remove("{}/{}.json".format(PROFILES_PATH,profile_name))
 
 class Config:
-    def __init__(self, steam_path = "AppList", is_path_setup = False, no_hook = True, compatibility_mode = False, version = CURRENT_VERSION, last_profile = "default"):
+    def __init__(self, steam_path = "", no_hook = True, compatibility_mode = False, version = CURRENT_VERSION, last_profile = "default", check_update = True):
         self.steam_path = steam_path
-        self.is_path_setup = is_path_setup
         self.no_hook = no_hook
         self.compatibility_mode = compatibility_mode
         self.version = version
         self.last_profile = last_profile
+        self.check_update = check_update
 
     def export_config(self):
-        data = {"steam_path": self.steam_path, "is_path_setup": self.is_path_setup, "no_hook": self.no_hook, "compatibility_mode": self.compatibility_mode, "version": CURRENT_VERSION, "last_profile": self.last_profile}
         with open("{}/config.json".format(BASE_PATH), "w") as outfile:
-            json.dump(data,outfile,indent=4)
+            json.dump(vars(self),outfile,indent=4)
+
+    #  Mass set attributes and export the config
+    def set_attributes(self, dict_):
+        for name, value in dict_.items():
+            if name in vars(self).keys():
+                setattr(self, name, value)
+            else:
+                print("Attribute {0} don't exist.".format(name))
+        
+        self.export_config()
 
     @staticmethod
     def from_JSON(data):
-        keys = data.keys()
         config = Config()
-        return Config(data["steam_path"] if "steam_path" in keys else config.steam_path, 
-                      data["is_path_setup"] if "is_path_setup" in keys else config.is_path_setup, 
-                      data["no_hook"] if "no_hook" in keys else config.no_hook,
-                      data["compatibility_mode"] if "compatibility_mode" in keys else config.compatibility_mode,
-                      data["version"] if "version" in keys else config.version,
-                      data["last_profile"] if "last_profile" in keys else config.last_profile)
+        for key, value in data.items():
+            if key in vars(config).keys():
+                setattr(config, key, value)
+            
+        return config
 
     @staticmethod
     def load_config():
         if not os.path.isfile("{}/config.json".format(BASE_PATH)):
-            config = Config()
             if not os.path.exists(BASE_PATH):
                 os.makedirs(BASE_PATH)
             
+            config = Config()
             config.export_config()
             return config
         else:
@@ -196,7 +203,7 @@ def queryGames(input_):
     return parseGames(html)
 
 def runUpdater():
-    if "-NoUpdate" not in sys.argv:
+    if "-NoUpdate" not in sys.argv and config.check_update:
         subprocess.run("GLR Updater.exe")
     
     # Post update measure
