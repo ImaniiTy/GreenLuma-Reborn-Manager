@@ -13,7 +13,7 @@ PROFILES_PATH = "{}/Profiles".format(BASE_PATH)
 CURRENT_VERSION = "1.3.1"
 
 class Game:
-    def __init__(self,id,name,type):
+    def __init__(self, id, name, type):
         self.id = id
         self.name = name
         self.type = type

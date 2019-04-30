@@ -12,6 +12,7 @@
 
 *.spec
 *.bat
+*.log
 dist/*
 build/*
 __pycache__/
