@@ -42,7 +42,7 @@ class MainWindow(QMainWindow):
         self.show_profile_games(profile_manager.profiles[self.main_window.profile_selector.currentText()])
         self.setup_steam_path()
         self.setup_search_table()
-        self.main_window.main_panel.raise_()
+        # self.main_window.main_panel.raise_()
 
         # Settings Window Setup
         self.main_window.update_checkbox.setChecked(core.config.check_update)
@@ -301,7 +301,7 @@ class MainWindow(QMainWindow):
         if core.config.steam_path != "":
             self.main_window.settings_steam_path.setText(core.config.steam_path)
             return
-        
+
         self.toggle_widget(self.main_window.set_steam_path_window)
 
     def drop_event_handler(self, event):

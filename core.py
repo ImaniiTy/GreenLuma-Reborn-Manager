@@ -5,12 +5,13 @@ import shutil
 import json
 import time
 import sys
+import logging
 from bs4 import BeautifulSoup as parser
 from requests.exceptions import ConnectionError, ConnectTimeout
 
 BASE_PATH = "{}/GLR_Manager".format(os.getenv("LOCALAPPDATA"))
 PROFILES_PATH = "{}/Profiles".format(BASE_PATH)
-CURRENT_VERSION = "1.3.1"
+CURRENT_VERSION = "1.3.4"
 
 class Game:
     def __init__(self, id, name, type):
@@ -86,14 +87,15 @@ class ProfileManager:
                 try:
                     data = json.load(file)
                     self.register_profile(Profile.from_JSON(data))
-                except json.JSONDecodeError:
+                except json.JSONDecodeError as e:
+                    logging.exception(e)
                     file.close()
                     os.remove("{}/{}".format(PROFILES_PATH,filename))
 
     def register_profile(self, profile):
         self.profiles[profile.name] = profile
 
-    def create_profile(self, name, games = None):
+    def create_profile(self, name, games = []):
         if name is "":
             return
         
@@ -147,15 +149,22 @@ class Config:
             return config
         else:
             with open("{}/config.json".format(BASE_PATH), "r") as file:
-                data = json.load(file)
-                config = Config.from_JSON(data)
+                try:
+                    data = json.load(file)
+                    config = Config.from_JSON(data)
+                except Exception as e:
+                    logging.exception(e)
+                    config = Config()
+                
                 config.version = CURRENT_VERSION
                 config.export_config()
                 return config
 
 
 #-------------
+logging.basicConfig(filename='errors.log', filemode="w", level=logging.DEBUG)
 config = Config.load_config()
+
 
 def createFiles(games):
     if not os.path.exists("{}/AppList".format(config.steam_path)):
@@ -198,6 +207,7 @@ def queryGames(input_):
     try:
         result = scraper.get("https://steamdb.info/search/?a=app&q={0}&type=-1&category=0".format(queryfy(input_)))
     except (ConnectionError, ConnectTimeout) as err:
+        logging.exception(err)
         return err
     
     html = result.content
