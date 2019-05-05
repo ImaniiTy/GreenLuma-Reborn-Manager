@@ -501,7 +501,7 @@ font: 75 11pt &quot;Consolas&quot;;</string>
       <bool>false</bool>
      </property>
     </widget>
-    <widget class="QTableView" name="search_result">
+    <widget class="QTableWidget" name="search_result">
      <property name="geometry">
       <rect>
        <x>15</x>
@@ -528,32 +528,14 @@ font: 75 11pt &quot;Consolas&quot;;</string>
      <property name="wordWrap">
       <bool>false</bool>
      </property>
-     <property name="cornerButtonEnabled">
-      <bool>false</bool>
-     </property>
-     <attribute name="horizontalHeaderCascadingSectionResizes">
-      <bool>false</bool>
-     </attribute>
-     <attribute name="horizontalHeaderDefaultSectionSize">
-      <number>55</number>
-     </attribute>
-     <attribute name="horizontalHeaderMinimumSectionSize">
-      <number>55</number>
-     </attribute>
      <attribute name="horizontalHeaderStretchLastSection">
-      <bool>false</bool>
+      <bool>true</bool>
      </attribute>
      <attribute name="verticalHeaderVisible">
       <bool>false</bool>
      </attribute>
-     <attribute name="verticalHeaderCascadingSectionResizes">
-      <bool>true</bool>
-     </attribute>
-     <attribute name="verticalHeaderDefaultSectionSize">
-      <number>35</number>
-     </attribute>
-     <attribute name="verticalHeaderMinimumSectionSize">
-      <number>35</number>
+     <attribute name="verticalHeaderStretchLastSection">
+      <bool>false</bool>
      </attribute>
     </widget>
     <widget class="QFrame" name="searching_frame">
@@ -895,6 +877,7 @@ color: rgb(6, 11, 8);</string>
     <zorder>remove_game</zorder>
     <zorder>compatibility_mode_checkbox</zorder>
     <zorder>search_result</zorder>
+    <zorder>searching_frame</zorder>
     <zorder>create_profile</zorder>
     <zorder>label_4</zorder>
     <zorder>run_GLR_btn</zorder>
@@ -908,7 +891,6 @@ color: rgb(6, 11, 8);</string>
     <zorder>version_label</zorder>
     <zorder>search_btn</zorder>
     <zorder>settings_btn</zorder>
-    <zorder>searching_frame</zorder>
    </widget>
    <widget class="QWidget" name="settings_window" native="true">
     <property name="enabled">

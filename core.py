@@ -31,6 +31,10 @@ class Game:
     def __eq__(self, value):
         return self.id == value.id and self.name == value.name and self.type == value.type
 
+    def __getitem__(self, index):
+        values_list = list(vars(self).values())
+        return values_list[index]
+
     @staticmethod
     def from_JSON(data):
         return Game(data["id"],data["name"],data["type"])
@@ -39,7 +43,7 @@ class Game:
     def from_table_list(list):
         games = []
         for i in range(int(len(list)/3)):
-            games.append(Game(list[i * 3].text(), list[i * 3 + 1].text(), list[i * 3 + 2].text()))
+            games.append(Game(list[i * 3], list[i * 3 + 1], list[i * 3 + 2]))
 
         return games
 

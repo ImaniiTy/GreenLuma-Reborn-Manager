@@ -1,6 +1,6 @@
 from Qt.gui import Ui_MainWindow
-from PyQt5.QtWidgets import QMainWindow, QHeaderView, QTableWidgetItem, QShortcut, QListWidget
-from PyQt5.QtCore import  QAbstractItemModel, Qt, QModelIndex, QVariant, QThread, QEvent, pyqtSignal
+from PyQt5.QtWidgets import QMainWindow, QHeaderView, QTableWidgetItem, QShortcut, QListWidget, QTableView
+from PyQt5.QtCore import  QAbstractItemModel, Qt, QModelIndex, QVariant, QThread, QEvent, pyqtSignal, QAbstractTableModel, QSortFilterProxyModel
 from PyQt5.QtGui import QKeySequence, QIcon
 from shutil import copyfile
 import core
@@ -37,7 +37,7 @@ class MainWindow(QMainWindow):
         self.main_window.compatibility_mode_checkbox.setChecked(core.config.compatibility_mode)
         self.populate_list(self.main_window.games_list, games)
         self.main_window.games_list.dropEvent = self.drop_event_handler
-        self.populate_table(self.main_window.search_result, games)
+        self.populate_table(self.main_window.search_result)
         self.show_profile_names()
         self.show_profile_games(profile_manager.profiles[self.main_window.profile_selector.currentText()])
         self.setup_steam_path()
@@ -138,51 +138,31 @@ class MainWindow(QMainWindow):
     def search_games_done(self, result):
         if type(result) is list:
             self.toggle_hidden(self.main_window.searching_frame)
-            self.populate_table(self.main_window.search_result, result)
+            self.populate_table(self.main_window.search_result,result)
         else:
             self.toggle_hidden(self.main_window.searching_frame)
             self.show_popup("Can't connect to Steamdb. Check if you have internet connection.", lambda : self.toggle_widget(self.main_window.generic_popup, True))
 
     def setup_search_table(self):
-        self.main_window.search_result.setColumnCount(3)
+        h_header = self.main_window.search_result.horizontalHeader()
+        h_header.setSectionResizeMode(1,QHeaderView.Stretch)
+        h_header.setSectionResizeMode(0,QHeaderView.ResizeToContents)
+        h_header.setMaximumSectionSize(620)
 
-        header = self.main_window.search_result.horizontalHeader()
-        header.setSectionResizeMode(QHeaderView.ResizeToContents)
-        header.setMaximumSectionSize(580)
-        header.sectionClicked.connect(lambda index : self.main_window.search_result.horizontalHeader().setSortIndicator(index, Qt.AscendingOrder))
-
-        self.main_window.search_result.setHorizontalHeaderItem(0, QTableWidgetItem("Id"))
-        self.main_window.search_result.setHorizontalHeaderItem(1, QTableWidgetItem("Name"))
-        self.main_window.search_result.setHorizontalHeaderItem(2, QTableWidgetItem("Type"))
+    def populate_table(self, table: QTableView, data=[]):
+        model = TableModel(data)
+        sortable_model = QSortFilterProxyModel(model)
+        sortable_model.setSourceModel(model)
+        table.setModel(sortable_model)
     
     def populate_list(self, list_, data):
         list_.clear()
         for item in data:
             list_.addItem(item.name)
 
-    def populate_table(self, table, data):
-        # Reset
-        table.setSortingEnabled(False)
-        table.clearSelection()
-        table.setRowCount(0)
-        #----
-        table.setRowCount(len(data))
-
-        for i, item in enumerate(data):
-            for j, value in enumerate(item.to_list()):
-                table_item = QTableWidgetItem(value)
-                if j == 1:
-                    table_item.setFlags(Qt.ItemIsEnabled | Qt.ItemIsSelectable | Qt.ItemIsDragEnabled)
-                else:
-                    table_item.setFlags(Qt.ItemIsEnabled | Qt.ItemIsSelectable)
-
-                table.setItem(i, j, table_item)
-
-        table.setSortingEnabled(True)
-
     # Search Table and Profile Interaction Functions
     def add_selected(self):
-        items = self.main_window.search_result.selectedItems()
+        items = [selected.data() for selected in self.main_window.search_result.selectedIndexes()]
         if len(items) == 0:
             return
         
@@ -230,6 +210,7 @@ class MainWindow(QMainWindow):
             "compatibility_mode": self.main_window.compatibility_mode_checkbox.isChecked()
         })
 
+        # if : else used instead of ternary operator for better readability
         if core.config.compatibility_mode:
             self.replaceConfig("EnableMitigationsOnChildProcess"," 0")
         else:
@@ -340,3 +321,35 @@ class SearchThread(QThread):
     def run(self):
         result = core.queryGames(self.query)
         self.signal.emit(result)
+
+class TableModel(QAbstractTableModel):
+    def __init__(self, datain=[], parent=None):
+        super().__init__(parent=parent)
+        self.datain = datain
+    
+    def rowCount(self, parent=QModelIndex()):
+        return len(self.datain)
+
+    def columnCount(self, parent=QModelIndex()):
+        return 3
+
+    def data(self, index: QModelIndex, role=Qt.DisplayRole):
+        if index.isValid() and role == Qt.DisplayRole:
+            return f"{self.datain[index.row()][index.column()]}"
+        if index.column() == 2 and role == Qt.TextAlignmentRole:
+            return Qt.AlignCenter
+        else:
+            return QVariant()
+
+    def headerData(self, index, QtOrientation, role=Qt.DisplayRole):
+        names = ["Id", "Name", "Type"]
+        if role == Qt.DisplayRole:
+            return names[index]
+        else:
+            return QVariant()
+
+    def flags(self, index):
+        if index.column() == 1:
+            return Qt.ItemIsEnabled | Qt.ItemIsSelectable | Qt.ItemIsDragEnabled
+        else:
+            return Qt.ItemIsEnabled | Qt.ItemIsSelectable
