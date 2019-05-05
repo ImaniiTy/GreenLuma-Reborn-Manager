@@ -19,7 +19,7 @@ Also, keep in mind that not **every game** is available to play through Steam fa
 
 I **highly advise** you to follow the "Legit stealth mode" installation instructions if you do plan on using GreenLuma Reborn.
 
-![alt text](https://i.imgur.com/XSjQFn9.png)
+![alt text](https://i.imgur.com/SpLNqH8.png)
 
 #### Credits to [@linkthehylian](https://github.com/linkthehylian) for this brief explanation
 
