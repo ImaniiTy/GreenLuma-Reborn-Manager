@@ -17,11 +17,10 @@ Please keep in mind. Like CreamAPI, GreenLuma Reborn **does not** work for every
 
 Also, keep in mind that not **every game** is available to play through Steam family sharing.
 
-I **highly advise** you to follow the "Legit stealth mode" installation instructions if you do plan on using GreenLuma Reborn.
-
-![alt text](https://i.imgur.com/XSjQFn9.png)
-
 #### Credits to [@linkthehylian](https://github.com/linkthehylian) for this brief explanation
+
+I **highly advise** you to use the "Legit stealth mode" checking the box "NoHook" on my program:
+![alt text](https://i.imgur.com/xpAXU1b.png)
 
 ## Latest release: **[GreenLuma Reborn Manager v1.3.3](https://github.com/ImaniiTy/GreenLuma-Reborn-Manager/releases)**
 
@@ -38,7 +37,7 @@ I **highly advise** you to follow the "Legit stealth mode" installation instruct
   * All the profiles info are in JSON files so you can easily share with anyone
     * The profiles are saved on: C:\Users\YOUR_USER\AppData\Local\GLR_Manager\Profiles
 
-![alt text](https://i.imgur.com/F4dvAjV.png)
+![alt text](https://i.imgur.com/3B1iYZt.png)
   
 ## What's the difference between your app and [GreenLuma Reborn App](https://github.com/linkthehylian/GreenLuma-Reborn-App)?
   Well the main difference, like i said on the topic above, is that on my app you can search the game you want to add directly from the program and my version is more focused on the management of the folder (and if you're like me who don't like having all the games unlocked at the same time the profile system can help you alot)
