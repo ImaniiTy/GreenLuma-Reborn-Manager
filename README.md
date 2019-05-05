@@ -17,11 +17,10 @@ Please keep in mind. Like CreamAPI, GreenLuma Reborn **does not** work for every
 
 Also, keep in mind that not **every game** is available to play through Steam family sharing.
 
-I **highly advise** you to follow the "Legit stealth mode" installation instructions if you do plan on using GreenLuma Reborn.
-
-![alt text](https://i.imgur.com/SpLNqH8.png)
-
 #### Credits to [@linkthehylian](https://github.com/linkthehylian) for this brief explanation
+
+I **highly advise** you to use the "Legit stealth mode" checking the box "NoHook" on my program:
+![alt text](https://i.imgur.com/xpAXU1b.png)
 
 ## Latest release: **[GreenLuma Reborn Manager v1.3.3](https://github.com/ImaniiTy/GreenLuma-Reborn-Manager/releases)**
 
