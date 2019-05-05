@@ -296,7 +296,7 @@ class MainWindow(QMainWindow):
 
     def is_steam_running(self):
         for process in psutil.process_iter():
-            if process.name() == "Steam.exe" or process.name() == "SteamService.exe" or process.name() == "steamwebhelper.exe" or "DLLInjector.exe":
+            if process.name() == "Steam.exe" or process.name() == "SteamService.exe" or process.name() == "steamwebhelper.exe" or process.name() == "DLLInjector.exe":
                 return True
         
         return False
