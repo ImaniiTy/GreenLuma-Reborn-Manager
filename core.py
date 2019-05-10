@@ -6,6 +6,8 @@ import json
 import time
 import sys
 import logging
+from contextlib import contextmanager
+from typing import Iterator
 from bs4 import BeautifulSoup as parser
 from requests.exceptions import ConnectionError, ConnectTimeout
 
@@ -123,16 +125,6 @@ class Config:
         with open("{}/config.json".format(BASE_PATH), "w") as outfile:
             json.dump(vars(self),outfile,indent=4)
 
-    #  Mass set attributes and export the config
-    def set_attributes(self, dict_):
-        for name, value in dict_.items():
-            if name in vars(self).keys():
-                setattr(self, name, value)
-            else:
-                print("Attribute {0} don't exist.".format(name))
-        
-        self.export_config()
-
     @staticmethod
     def from_JSON(data):
         config = Config()
@@ -152,9 +144,9 @@ class Config:
             config.export_config()
             return config
         else:
-            with open("{}/config.json".format(BASE_PATH), "r") as file:
+            with open("{}/config.json".format(BASE_PATH), "r") as file_:
                 try:
-                    data = json.load(file)
+                    data = json.load(file_)
                     config = Config.from_JSON(data)
                 except Exception as e:
                     logging.exception(e)
@@ -164,11 +156,22 @@ class Config:
                 config.export_config()
                 return config
 
-
+class ConfigNotLoadedException(Exception):
+    pass
 #-------------
 logging.basicConfig(filename='errors.log', filemode="w", level=logging.DEBUG)
 config = Config.load_config()
 
+@contextmanager
+def get_config():
+    global config
+    try:
+        if config:
+            yield config
+        else:
+            config = Config.load_config()
+    finally:
+        config.export_config()
 
 def createFiles(games):
     if not os.path.exists("{}/AppList".format(config.steam_path)):

@@ -104,7 +104,8 @@ class MainWindow(QMainWindow):
         self.main_window.profile_selector.removeItem(index)
 
     def select_profile(self, name):
-        core.config.set_attributes({"last_profile": name})
+        with core.get_config() as config:
+            config.last_profile = name
 
         self.show_profile_games(profile_manager.profiles[name])
 
@@ -190,10 +191,9 @@ class MainWindow(QMainWindow):
 
     # Settings Functions
     def save_settings(self):
-        core.config.set_attributes({
-            "steam_path": self.main_window.settings_steam_path.text(),
-            "check_update": self.main_window.update_checkbox.isChecked()
-        })
+        with core.get_config() as config:
+            config.steam_path = self.main_window.settings_steam_path.text()
+            config.check_update = self.main_window.update_checkbox.isChecked()
 
         self.toggle_widget(self.main_window.settings_window)
 
@@ -205,10 +205,9 @@ class MainWindow(QMainWindow):
             return
 
         args = ["DLLInjector.exe", "-DisablePreferSystem32Images", "-CreateFile1", "NoQuestion.bin"]
-        core.config.set_attributes({
-            "no_hook": self.main_window.no_hook_checkbox.isChecked(),
-            "compatibility_mode": self.main_window.compatibility_mode_checkbox.isChecked()
-        })
+        with core.get_config() as config:
+            config.no_hook = self.main_window.no_hook_checkbox.isChecked()
+            config.compatibility_mode = self.main_window.compatibility_mode_checkbox.isChecked()
 
         # if : else used instead of ternary operator for better readability
         if core.config.compatibility_mode:
@@ -274,7 +273,8 @@ class MainWindow(QMainWindow):
     def set_steam_path(self):
         path = self.main_window.steam_path.text()
         if not path == "":
-            core.config.set_attributes({"steam_path": path})
+            with core.get_config() as config:
+                config.steam_path = path
         
         self.toggle_widget(self.main_window.set_steam_path_window)
 
