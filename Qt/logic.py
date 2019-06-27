@@ -204,7 +204,10 @@ class MainWindow(QMainWindow):
         if not self.generate_app_list(False):
             return
 
-        args = ["DLLInjector.exe", "-DisablePreferSystem32Images", "-CreateFile1", "NoQuestion.bin"]
+        args = ["DLLInjector.exe", "-DisablePreferSystem32Images"]
+        self.replaceConfig("CreateFiles", " 1")
+        self.replaceConfig("FileToCreate_1", " NoQuestion.bin")
+        
         with core.get_config() as config:
             config.no_hook = self.main_window.no_hook_checkbox.isChecked()
             config.compatibility_mode = self.main_window.compatibility_mode_checkbox.isChecked()
@@ -216,11 +219,15 @@ class MainWindow(QMainWindow):
             self.replaceConfig("EnableMitigationsOnChildProcess"," 1")
 
         if core.config.no_hook:
-            args.append("-CreateFile2")
-            args.append("NoHook.bin")
             self.replaceConfig("Exe"," Steam.exe")
+            self.replaceConfig("WaitForProcessTermination"," 0")
+            self.replaceConfig("EnableFakeParentProcess"," 1")
+            self.replaceConfig("CreateFiles", " 2")
+            self.replaceConfig("FileToCreate_2", " NoHook.bin", True)
         else:
             self.replaceConfig("Exe"," Steam.exe -inhibitbootstrap")
+            self.replaceConfig("WaitForProcessTermination"," 1")
+            self.replaceConfig("EnableFakeParentProcess"," 0")
 
 
         core.os.chdir(core.config.steam_path)
@@ -301,15 +308,21 @@ class MainWindow(QMainWindow):
         
         return False
 
-    def replaceConfig(self, name, new_value):
+    def replaceConfig(self, name, new_value, append = False):
+        found = False
         with fileinput.input(core.config.steam_path + "/DllInjector.ini", inplace=True) as fp:
             for line in fp:
                 if not line.startswith("#"):
                     tokens = line.split("=")
                     if tokens[0].strip() == name:
+                        found = True
                         tokens[1] = new_value
                         line = "=".join(tokens) + "\n"
                 print(line, end = "")
+            
+        if append and not found:
+            with open(core.config.steam_path + "/DllInjector.ini", "at") as f:
+                f.write("\n{0} = {1}".format(name, new_value))
 
 class SearchThread(QThread):
     signal = pyqtSignal('PyQt_PyObject')
