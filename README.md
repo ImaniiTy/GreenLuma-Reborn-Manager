@@ -22,7 +22,7 @@ Also, keep in mind that not **every game** is available to play through Steam fa
 I **highly advise** you to use the "Legit stealth mode" checking the box "NoHook" on my program:
 ![alt text](https://i.imgur.com/xpAXU1b.png)
 
-## Latest release: **[GreenLuma Reborn Manager v1.3.4](https://github.com/ImaniiTy/GreenLuma-Reborn-Manager/releases)**
+## Latest release: **[GreenLuma Reborn Manager v1.3.6](https://github.com/ImaniiTy/GreenLuma-Reborn-Manager/releases)**
 
 ## Features
   * Easily manage profiles for various games(good to circumvent the 160 id limit)
