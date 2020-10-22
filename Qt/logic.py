@@ -142,7 +142,7 @@ class MainWindow(QMainWindow):
             self.populate_table(self.main_window.search_result,result)
         else:
             self.toggle_hidden(self.main_window.searching_frame)
-            self.show_popup("Can't connect to Steamdb. Check if you have internet connection.", lambda : self.toggle_widget(self.main_window.generic_popup, True))
+            self.show_popup("Can't connect to Steam. Check if you have internet connection.", lambda : self.toggle_widget(self.main_window.generic_popup, True))
 
     def setup_search_table(self):
         h_header = self.main_window.search_result.horizontalHeader()
@@ -204,7 +204,7 @@ class MainWindow(QMainWindow):
         if not self.generate_app_list(False):
             return
 
-        args = ["DLLInjector.exe", "-DisablePreferSystem32Images"]
+        args = ["DLLInjector.exe"]
         self.replaceConfig("CreateFiles", " 1")
         self.replaceConfig("FileToCreate_1", " NoQuestion.bin")
         
@@ -219,15 +219,17 @@ class MainWindow(QMainWindow):
             self.replaceConfig("EnableMitigationsOnChildProcess"," 1")
 
         if core.config.no_hook:
-            self.replaceConfig("Exe"," Steam.exe")
+            self.replaceConfig("CommandLine","")
             self.replaceConfig("WaitForProcessTermination"," 0")
             self.replaceConfig("EnableFakeParentProcess"," 1")
             self.replaceConfig("CreateFiles", " 2")
-            self.replaceConfig("FileToCreate_2", " NoHook.bin", True)
+            self.replaceConfig("FileToCreate_2", " StealthMode.bin", True)
         else:
-            self.replaceConfig("Exe"," Steam.exe -inhibitbootstrap")
+            self.replaceConfig("CommandLine"," -inhibitbootstrap")
             self.replaceConfig("WaitForProcessTermination"," 1")
             self.replaceConfig("EnableFakeParentProcess"," 0")
+            self.replaceConfig("CreateFiles", " 1")
+            self.replaceConfig("FileToCreate_2", "", True)
 
 
         core.os.chdir(core.config.steam_path)

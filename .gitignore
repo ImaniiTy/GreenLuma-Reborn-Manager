@@ -17,6 +17,7 @@
 dist/*
 build/*
 __pycache__/
+env/
 
 # GLR_Updater
 GLR_Updater/.vs

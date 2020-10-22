@@ -1,14 +1,18 @@
-import cfscrape
 import os
 import subprocess
 import shutil
 import json
+import ujson
 import time
 import sys
 import logging
 from contextlib import contextmanager
 from typing import Iterator
 from bs4 import BeautifulSoup as parser
+from multiprocessing.pool import ThreadPool
+from itertools import chain, islice
+# import cfscrape
+import requests
 from requests.exceptions import ConnectionError, ConnectTimeout
 
 BASE_PATH = "{}/GLR_Manager".format(os.getenv("LOCALAPPDATA"))
@@ -62,7 +66,8 @@ class Profile:
             self.games.remove(game)
         else:
             for game_ in self.games:
-                if game_.name == game: self.games.remove(game_)
+                if game_.name == game: 
+                    self.games.remove(game_)
     
     def export_profile(self,path = PROFILES_PATH):
         data = {"name": self.name, "games": [game.to_JSON() for game in self.games]}
@@ -113,7 +118,7 @@ class ProfileManager:
         os.remove("{}/{}.json".format(PROFILES_PATH,profile_name))
 
 class Config:
-    def __init__(self, steam_path = "", no_hook = True, compatibility_mode = False, version = CURRENT_VERSION, last_profile = "default", check_update = True):
+    def __init__(self, steam_path = "", no_hook = True, compatibility_mode = True, version = CURRENT_VERSION, last_profile = "default", check_update = True):
         self.steam_path = steam_path
         self.no_hook = no_hook
         self.compatibility_mode = compatibility_mode
@@ -185,18 +190,56 @@ def createFiles(games):
         with open("{}/AppList/{}.txt".format(config.steam_path,i),"w") as file:
             file.write(games[i].id)
 
+# def parseGames(html):
+#     p = parser(html, 'html.parser')
+
+#     rows = p.find_all("tr", class_= "app")
+
+#     games = []
+#     for row in rows:
+#         data = row("td")
+#         if(data[1].get_text() != "Unknown"):
+#             game = Game(data[0].get_text(),data[2].get_text(),data[1].get_text())
+#             #print(game.to_string())
+#             games.append(game)
+
+#     return games
+
+def parseDlcs(html):
+    p = parser(html, 'html.parser')
+
+    dlcs = p.find_all("div", class_= "recommendation")
+
+    games = []
+    for dlc in dlcs:
+        appid = dlc.find("a")["data-ds-appid"]
+        name = dlc.find("span", class_= "color_created").get_text()
+        games.append(Game(appid, name, "DLC"))
+
+
+    return games
+
+def getDlcs(storeUrl):
+    appinfo = storeUrl.split("app/")[1].split("/")
+    appid = appinfo[0]
+    sanitazedName = appinfo[1]
+
+    params = {"sort": "newreleases", "count": 50, "start": 0}
+    baseUrl = "https://store.steampowered.com/dlc/{0}/{1}/ajaxgetfilteredrecommendations"
+    response = requests.get(baseUrl.format(appid, sanitazedName), params=params).json()
+    return parseDlcs(response["results_html"])
+
 def parseGames(html):
     p = parser(html, 'html.parser')
 
-    rows = p.find_all("tr", class_= "app")
+    results = p.find_all("a", class_= "search_result_row")
 
     games = []
-    for row in rows:
-        data = row("td")
-        if(data[1].get_text() != "Unknown"):
-            game = Game(data[0].get_text(),data[2].get_text(),data[1].get_text())
-            #print(game.to_string())
-            games.append(game)
+    for result in results[:3]:
+        appid = result["data-ds-appid"]
+        name = result.find("span", class_= "title").get_text()
+        games.append(Game(appid, name, "Game"))
+        games.extend(getDlcs(result["href"]))
 
     return games
 
@@ -209,16 +252,14 @@ def queryfy(input_):
     print(result)
     return result
 
-def queryGames(input_):
-    scraper = cfscrape.create_scraper()
+def queryGames(query):
     try:
-        result = scraper.get("https://steamdb.info/search/?a=app&q={0}&type=-1&category=0".format(queryfy(input_)))
+        params = {"term": query, "count": 25, "start": 0, "category1": 998}
+        response = requests.get("https://store.steampowered.com/search/results", params=params)
+        return parseGames(response.content)
     except (ConnectionError, ConnectTimeout) as err:
         logging.exception(err)
         return err
-    
-    html = result.content
-    return parseGames(html)
 
 def runUpdater():
     if "-NoUpdate" not in sys.argv and config.check_update:
