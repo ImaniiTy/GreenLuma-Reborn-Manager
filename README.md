@@ -1,3 +1,6 @@
+# Known Issue
+if you use the option to install GreenLuma Reborn in any folder on you pc the Manager will not work, for now use the default installation method of the GreenLuma Reborn, A.K.A installing direct in the steam folder
+
 # GreenLuma Reborn Manager
 An app to manage the Steam unlocker "GreenLuma Reborn" AppList folder
 
