@@ -13,7 +13,7 @@ macholib==1.11
 mccabe==0.6.1
 pefile==2018.8.8
 psutil==5.5.1
-PyInstaller==3.4
+PyInstaller==3.6
 pylint==2.2.2
 PyQt5==5.12
 PyQt5-sip==4.19.14
