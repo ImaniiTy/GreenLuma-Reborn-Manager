@@ -2,15 +2,11 @@ import os
 import subprocess
 import shutil
 import json
-import ujson
 import time
 import sys
 import logging
 from contextlib import contextmanager
-from typing import Iterator
 from bs4 import BeautifulSoup as parser
-from multiprocessing.pool import ThreadPool
-from itertools import chain, islice
 # import cfscrape
 import requests
 from requests.exceptions import ConnectionError, ConnectTimeout
@@ -219,8 +215,8 @@ def parseDlcs(html):
 
     return games
 
-def getDlcs(storeUrl):
-    appinfo = storeUrl.split("app/")[1].split("/")
+def getDlcs(appQuery):
+    appinfo = appQuery.split("/")
     appid = appinfo[0]
     sanitazedName = appinfo[1]
 
@@ -239,7 +235,10 @@ def parseGames(html):
         appid = result["data-ds-appid"]
         name = result.find("span", class_= "title").get_text()
         games.append(Game(appid, name, "Game"))
-        games.extend(getDlcs(result["href"]))
+        appQuery = result["href"].split("app/")
+        print(appQuery)
+        
+        if len(appQuery) > 1: games.extend(getDlcs(appQuery[1]))
 
     return games
 

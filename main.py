@@ -1,7 +1,6 @@
 import sys, logging, traceback
 from core import runUpdater
 from PyQt5.QtWidgets import QApplication
-from Qt.gui import Ui_MainWindow
 from Qt.logic import MainWindow
 
 # Logs errors on crash

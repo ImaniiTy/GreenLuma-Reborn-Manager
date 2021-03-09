@@ -238,7 +238,7 @@ class MainWindow(QMainWindow):
             subprocess.run(["Steam.exe", "-shutdown"]) #Shutdown Steam
             while self.is_steam_running():
                 core.time.sleep(1)
-            core.time.sleep(1)
+            core.time.sleep(2)
         
         subprocess.Popen(args)
         self.close()
