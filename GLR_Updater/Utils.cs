@@ -10,6 +10,10 @@ using System.Diagnostics;
 namespace GLR_Updater {
    class Utils {
       public static async Task<string> GetLatest() {
+         ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3;
+
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
          using (var httpClient = new HttpClient()) {
             HttpResponseMessage response = await httpClient.GetAsync("https://github.com/ImaniiTy/GreenLuma-Reborn-Manager/releases/latest");
             var header = response.RequestMessage.RequestUri.Segments;
