@@ -481,7 +481,7 @@ font: 75 11pt &quot;Consolas&quot;;</string>
      <property name="geometry">
       <rect>
        <x>755</x>
-       <y>695</y>
+       <y>665</y>
        <width>150</width>
        <height>21</height>
       </rect>
@@ -496,6 +496,33 @@ font: 75 11pt &quot;Consolas&quot;;</string>
      </property>
      <property name="text">
       <string>Compatibility Mode</string>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="write_all_profiles_checkbox">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>755</x>
+       <y>695</y>
+       <width>150</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>Enable this if you want to write all of your profiles at once to the AppList folder</string>
+     </property>
+     <property name="text">
+      <string>Write all profiles</string>
      </property>
      <property name="checked">
       <bool>false</bool>
@@ -831,7 +858,7 @@ color: rgb(6, 11, 8);</string>
      <property name="geometry">
       <rect>
        <x>755</x>
-       <y>665</y>
+       <y>635</y>
        <width>120</width>
        <height>21</height>
       </rect>
@@ -892,8 +919,9 @@ color: rgb(6, 11, 8);</string>
     </widget>
     <zorder>profile_selector</zorder>
     <zorder>label</zorder>
-    <zorder>remove_game</zorder>
     <zorder>compatibility_mode_checkbox</zorder>
+    <zorder>no_hook_checkbox</zorder>
+    <zorder>remove_game</zorder>
     <zorder>search_result</zorder>
     <zorder>create_profile</zorder>
     <zorder>label_4</zorder>
@@ -904,7 +932,7 @@ color: rgb(6, 11, 8);</string>
     <zorder>label_2</zorder>
     <zorder>delete_profile</zorder>
     <zorder>game_search_text</zorder>
-    <zorder>no_hook_checkbox</zorder>
+
     <zorder>version_label</zorder>
     <zorder>search_btn</zorder>
     <zorder>settings_btn</zorder>

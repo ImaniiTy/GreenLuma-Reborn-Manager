@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'gui.ui'
+# Form implementation generated from reading ui file 'Qt\gui.ui'
 #
-# Created by: PyQt5 UI code generator 5.12
+# Created by: PyQt5 UI code generator 5.12.3
 #
 # WARNING! All changes made in this file will be lost!
+
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
@@ -211,12 +212,20 @@ class Ui_MainWindow(object):
         self.remove_game.setObjectName("remove_game")
         self.compatibility_mode_checkbox = QtWidgets.QCheckBox(self.main_panel)
         self.compatibility_mode_checkbox.setEnabled(True)
-        self.compatibility_mode_checkbox.setGeometry(QtCore.QRect(755, 695, 150, 21))
+        self.compatibility_mode_checkbox.setGeometry(QtCore.QRect(755, 665, 150, 21))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.compatibility_mode_checkbox.setFont(font)
         self.compatibility_mode_checkbox.setChecked(False)
         self.compatibility_mode_checkbox.setObjectName("compatibility_mode_checkbox")
+        self.write_all_profiles_checkbox = QtWidgets.QCheckBox(self.main_panel)
+        self.write_all_profiles_checkbox.setEnabled(True)
+        self.write_all_profiles_checkbox.setGeometry(QtCore.QRect(755, 695, 150, 21))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.write_all_profiles_checkbox.setFont(font)
+        self.write_all_profiles_checkbox.setChecked(False)
+        self.write_all_profiles_checkbox.setObjectName("write_all_profiles_checkbox")
         self.search_result = QtWidgets.QTableView(self.main_panel)
         self.search_result.setGeometry(QtCore.QRect(15, 105, 790, 491))
         self.search_result.setStyleSheet("background-color: rgb(28, 28, 28);")
@@ -335,7 +344,7 @@ class Ui_MainWindow(object):
         self.game_search_text.setText("")
         self.game_search_text.setObjectName("game_search_text")
         self.no_hook_checkbox = QtWidgets.QCheckBox(self.main_panel)
-        self.no_hook_checkbox.setGeometry(QtCore.QRect(755, 665, 120, 21))
+        self.no_hook_checkbox.setGeometry(QtCore.QRect(755, 635, 120, 21))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.no_hook_checkbox.setFont(font)
@@ -356,8 +365,9 @@ class Ui_MainWindow(object):
         self.settings_btn.setObjectName("settings_btn")
         self.profile_selector.raise_()
         self.label.raise_()
-        self.remove_game.raise_()
         self.compatibility_mode_checkbox.raise_()
+        self.no_hook_checkbox.raise_()
+        self.remove_game.raise_()
         self.search_result.raise_()
         self.create_profile.raise_()
         self.label_4.raise_()
@@ -368,7 +378,6 @@ class Ui_MainWindow(object):
         self.label_2.raise_()
         self.delete_profile.raise_()
         self.game_search_text.raise_()
-        self.no_hook_checkbox.raise_()
         self.version_label.raise_()
         self.search_btn.raise_()
         self.settings_btn.raise_()
@@ -458,6 +467,8 @@ class Ui_MainWindow(object):
         self.remove_game.setText(_translate("MainWindow", "Remove Games"))
         self.compatibility_mode_checkbox.setToolTip(_translate("MainWindow", "Enable this if you\'re having problem with AV detection"))
         self.compatibility_mode_checkbox.setText(_translate("MainWindow", "Compatibility Mode"))
+        self.write_all_profiles_checkbox.setToolTip(_translate("MainWindow", "Enable this if you want to write all of your profiles at once to the AppList folder"))
+        self.write_all_profiles_checkbox.setText(_translate("MainWindow", "Write all profiles"))
         self.label_5.setText(_translate("MainWindow", "Searching..."))
         self.create_profile.setText(_translate("MainWindow", "New Profile"))
         self.label_4.setText(_translate("MainWindow", "GreenLuma Reborn Manager"))
@@ -479,4 +490,12 @@ class Ui_MainWindow(object):
         self.settings_steam_path.setPlaceholderText(_translate("MainWindow", "Path"))
 
 
-from Qt import resources_rc
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())

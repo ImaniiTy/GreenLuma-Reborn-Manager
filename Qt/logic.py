@@ -35,6 +35,7 @@ class MainWindow(QMainWindow):
         self.main_window.version_label.setText("v{0}".format(core.CURRENT_VERSION))
         self.main_window.no_hook_checkbox.setChecked(core.config.no_hook)
         self.main_window.compatibility_mode_checkbox.setChecked(core.config.compatibility_mode)
+        self.main_window.write_all_profiles_checkbox.setChecked(core.config.write_all_profiles)
         self.populate_list(self.main_window.games_list, games)
         self.main_window.games_list.dropEvent = self.drop_event_handler
         self.populate_table(self.main_window.search_result)
@@ -244,13 +245,26 @@ class MainWindow(QMainWindow):
         self.close()
 
     def generate_app_list(self, popup = True):
-        selected_profile = profile_manager.profiles[self.main_window.profile_selector.currentText()]
+        games_to_create = []
 
-        if len(selected_profile.games) == 0:
-            self.show_popup("No games to generate.", lambda : self.toggle_widget(self.main_window.generic_popup,True))
+        with core.get_config() as config:
+            write_all = config.write_all_profiles = self.main_window.write_all_profiles_checkbox.isChecked()
+
+        if write_all:
+            for profile_name in profile_manager.profiles:
+                games_to_create.extend(profile_manager.profiles[profile_name].games)
+        else:
+            selected_profile = profile_manager.profiles[self.main_window.profile_selector.currentText()]
+            games_to_create.extend(selected_profile.games)
+
+        # remove duplicates
+        games_to_create = list(set(games_to_create))
+        if len(games_to_create) == 0:
+            self.show_popup("No games to generate.",
+                            lambda: self.toggle_widget(self.main_window.generic_popup, True))
             return False
         
-        core.createFiles(selected_profile.games)
+        core.createFiles(games_to_create)
         if(popup):
             self.show_popup("AppList Folder Generated", lambda : self.toggle_widget(self.main_window.generic_popup, True))
 

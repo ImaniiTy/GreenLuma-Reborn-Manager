@@ -33,6 +33,9 @@ class Game:
     def __eq__(self, value):
         return self.id == value.id and self.name == value.name and self.type == value.type
 
+    def __hash__(self):
+        return int(self.id)
+
     def __getitem__(self, index):
         values_list = list(vars(self).values())
         return values_list[index]
@@ -114,13 +117,14 @@ class ProfileManager:
         os.remove("{}/{}.json".format(PROFILES_PATH,profile_name))
 
 class Config:
-    def __init__(self, steam_path = "", no_hook = True, compatibility_mode = True, version = CURRENT_VERSION, last_profile = "default", check_update = True):
+    def __init__(self, steam_path = "", no_hook = True, compatibility_mode = True, version = CURRENT_VERSION, last_profile = "default", check_update = True, write_all_profiles = False):
         self.steam_path = steam_path
         self.no_hook = no_hook
         self.compatibility_mode = compatibility_mode
         self.version = version
         self.last_profile = last_profile
         self.check_update = check_update
+        self.write_all_profiles = write_all_profiles
 
     def export_config(self):
         with open("{}/config.json".format(BASE_PATH), "w") as outfile:
