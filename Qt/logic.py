@@ -211,6 +211,7 @@ class MainWindow(QMainWindow):
         with core.get_config() as config:
             config.no_hook = self.main_window.no_hook_checkbox.isChecked()
             config.compatibility_mode = self.main_window.compatibility_mode_checkbox.isChecked()
+            config.write_all_profiles = self.main_window.write_all_profiles_checkbox.isChecked()
 
         # if : else used instead of ternary operator for better readability
         if core.config.compatibility_mode:
