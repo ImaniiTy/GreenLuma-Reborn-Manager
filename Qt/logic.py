@@ -246,12 +246,15 @@ class MainWindow(QMainWindow):
     def generate_app_list(self, popup = True):
         games_to_create = []
 
-        if True:
-            selected_profile = profile_manager.profiles[self.main_window.profile_selector.currentText()]
-            games_to_create.extend(selected_profile.games)
-        else:
+        with core.get_config() as config:
+            write_all = config.write_all_profiles
+
+        if write_all:
             for profile_name in profile_manager.profiles:
                 games_to_create.extend(profile_manager.profiles[profile_name].games)
+        else:
+            selected_profile = profile_manager.profiles[self.main_window.profile_selector.currentText()]
+            games_to_create.extend(selected_profile.games)
 
         # remove duplicates
         games_to_create = list(set(games_to_create))
