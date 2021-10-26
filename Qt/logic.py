@@ -244,13 +244,23 @@ class MainWindow(QMainWindow):
         self.close()
 
     def generate_app_list(self, popup = True):
-        selected_profile = profile_manager.profiles[self.main_window.profile_selector.currentText()]
+        games_to_create = []
 
-        if len(selected_profile.games) == 0:
-            self.show_popup("No games to generate.", lambda : self.toggle_widget(self.main_window.generic_popup,True))
+        if True:
+            selected_profile = profile_manager.profiles[self.main_window.profile_selector.currentText()]
+            games_to_create.extend(selected_profile.games)
+        else:
+            for profile_name in profile_manager.profiles:
+                games_to_create.extend(profile_manager.profiles[profile_name].games)
+
+        # remove duplicates
+        games_to_create = list(set(games_to_create))
+        if len(games_to_create) == 0:
+            self.show_popup("No games to generate.",
+                            lambda: self.toggle_widget(self.main_window.generic_popup, True))
             return False
         
-        core.createFiles(selected_profile.games)
+        core.createFiles(games_to_create)
         if(popup):
             self.show_popup("AppList Folder Generated", lambda : self.toggle_widget(self.main_window.generic_popup, True))
 

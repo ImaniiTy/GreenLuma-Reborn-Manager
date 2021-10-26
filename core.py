@@ -33,6 +33,9 @@ class Game:
     def __eq__(self, value):
         return self.id == value.id and self.name == value.name and self.type == value.type
 
+    def __hash__(self):
+        return int(self.id)
+
     def __getitem__(self, index):
         values_list = list(vars(self).values())
         return values_list[index]
