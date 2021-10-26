@@ -124,7 +124,7 @@ class Config:
         self.version = version
         self.last_profile = last_profile
         self.check_update = check_update
-        self.write_all_profiles = False
+        self.write_all_profiles = write_all_profiles
 
     def export_config(self):
         with open("{}/config.json".format(BASE_PATH), "w") as outfile:

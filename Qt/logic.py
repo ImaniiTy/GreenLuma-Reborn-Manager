@@ -35,6 +35,7 @@ class MainWindow(QMainWindow):
         self.main_window.version_label.setText("v{0}".format(core.CURRENT_VERSION))
         self.main_window.no_hook_checkbox.setChecked(core.config.no_hook)
         self.main_window.compatibility_mode_checkbox.setChecked(core.config.compatibility_mode)
+        self.main_window.write_all_profiles_checkbox.setChecked(core.config.write_all_profiles)
         self.populate_list(self.main_window.games_list, games)
         self.main_window.games_list.dropEvent = self.drop_event_handler
         self.populate_table(self.main_window.search_result)
@@ -211,7 +212,6 @@ class MainWindow(QMainWindow):
         with core.get_config() as config:
             config.no_hook = self.main_window.no_hook_checkbox.isChecked()
             config.compatibility_mode = self.main_window.compatibility_mode_checkbox.isChecked()
-            config.write_all_profiles = self.main_window.write_all_profiles_checkbox.isChecked()
 
         # if : else used instead of ternary operator for better readability
         if core.config.compatibility_mode:
@@ -248,7 +248,7 @@ class MainWindow(QMainWindow):
         games_to_create = []
 
         with core.get_config() as config:
-            write_all = config.write_all_profiles
+            write_all = config.write_all_profiles = self.main_window.write_all_profiles_checkbox.isChecked()
 
         if write_all:
             for profile_name in profile_manager.profiles:
